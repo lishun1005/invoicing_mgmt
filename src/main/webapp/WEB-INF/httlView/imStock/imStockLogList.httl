@@ -94,8 +94,10 @@ ${include("../public_header.httl")}
                             <td>
                                 <!-- #if(operateAction==0) -->
                                                                         出库
-                                <!-- #else -->
+                                <!-- #else(operateAction==1) -->
                                                                         入库
+                                <!-- #else -->
+                       	 销售
                                 <!-- #end-->
                             </td>
                         </tr>

@@ -82,7 +82,7 @@ public class ShipmentController {
 	* @date 2016年6月1日 下午4:14:54
 	 */
 	@RequestMapping(value = "shipment/edit", method = RequestMethod.POST)
-	public String speciesEdit(String shipmentId,Integer shipmentNum,String imStockImWarehouseId,Model model) {
+	public String speciesEdit(String shipmentId,Long shipmentNum,String imStockImWarehouseId,Model model) {
 		String msg="";
 		ResultMessage resultMessage=imStockManageService
 				.speciesEdit(shipmentId, shipmentNum, imStockImWarehouseId);

@@ -289,7 +289,7 @@ ${include("../public_header.httl")}
         style="z-index: 10" aria-labelledby="infoModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 500; overflow-y: auto;">
+            <div class="modal-content" style="width: 500; height:600px; overflow-y: auto;">
                 <div class="modal-header" id="firstDiv" style="text-align: center">
                     <button type="button" class="close" data-dismiss="modal"
                         aria-label="Close">
@@ -329,6 +329,7 @@ ${include("../public_header.httl")}
                               </select>
                               <input type="hidden" name="imWarehouseId">
                               <input type="hidden" name="imSpeciesId">
+                              <input type="hidden" name="proId">
                             </div>
                         </div>
                         <div class="form-line "
@@ -435,6 +436,7 @@ ${include("../public_header.httl")}
     ${include("../public_footer.httl")}
     <script type="text/javascript" src="${manageHost}/js/base/formValidata.js"></script>
     <script type="text/javascript">
+    
      function exportExcel(){
 	   	$("#pageForm").find("input[name='excel']").val("1");
 	   	$("#pageForm").submit();
@@ -447,6 +449,13 @@ ${include("../public_header.httl")}
      }
      function countPriceBlur(obj){
     	 var num=$(obj).val();
+       	 var inventory=$("#saleDataForm").find("input[name='inventory']").val();
+       	 if(parseInt(num)>parseInt(inventory)){
+       		 alert("出货数量必须小于库存量");
+       		 $("#saleDataForm").find("input[name=countPrice]").val("");
+       		 $(obj).val("");
+       		 return;
+       	 }
     	 var salePrice=$("#saleDataForm").find("input[name=salePrice]").val();
     	 var countPrice=parseFloat(salePrice)*parseInt(num);
     	 $("#saleDataForm").find("input[name=countPrice]").val(countPrice);
@@ -484,6 +493,7 @@ ${include("../public_header.httl")}
          form.find("select[name='listCatSel']").attr("disabled","disabled");
          form.find("select[name='imSpeciesIdSel']").attr("disabled","disabled");
          
+         form.find("input[name='proId']").val(id);
          form.find("input[name='imSpeciesId']").val(imSpeciesId1);
          
          form.find("input[name='promotionPrice']").val(promotionPrice); 

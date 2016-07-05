@@ -60,9 +60,10 @@ public interface ImStockManageService {
 	* @author lishun 
 	* @date 2016年6月1日 下午4:04:23
 	 */
-	public ResultMessage speciesEdit(String shipmentId,Integer shipmentNum,String imStockImWarehouseId);
+	public ResultMessage speciesEdit(String shipmentId,Long shipmentNum,String imStockImWarehouseId);
 	ResultBean<ImStock> queryByIds(String imWarehouseId, String imSpeciesId,
 			String specifications);
 	ResultBean<List<ImStock>> queryByImWarehouseId(String imWarehouseId);
 	ResultBean<List<ImStock>> queryByImSpeciesId(String imSpeciesId);
+	ResultMessage salePro(String proId, Long shipmentNum);
 }

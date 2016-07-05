@@ -80,7 +80,31 @@ public class ImStockManageServiceImpl extends BaseService implements ImStockMana
 		return resultMessage;
 	}
 	@Override
-	public ResultMessage speciesEdit(String shipmentId,Integer shipmentNum,String imStockImWarehouseId) {
+	public ResultMessage salePro(String proId,Long shipmentNum){
+		ResultMessage resultMessage=getResultMessage();
+		int reuslt=imStockDao.updateInventory(proId, "sub", shipmentNum);
+		if(reuslt>0){
+			ImStock shipmentTmp=imStockDao.queryById(proId);
+			String specifications=shipmentTmp.getSpecifications();
+			String imSpeciesId=shipmentTmp.getImSpeciesId();
+			ImStockLog imStockLogTmp=new ImStockLog();
+			imStockLogTmp.setId(UUID.randomUUID().toString());
+			imStockLogTmp.setImSpeciesId(imSpeciesId);
+			imStockLogTmp.setSpecifications(specifications);
+			imStockLogTmp.setOperateNum(Long.valueOf(shipmentNum));
+			imStockLogTmp.setOperateBy(ShiroKit.principal());
+			imStockLogTmp.setImWarehouseId(shipmentTmp.getImWarehouseId());
+			imStockLogTmp.setOperateAction(2);
+			imStockLogDao.insert(imStockLogTmp);
+			resultMessage.setResultCode(ResultCode.Success);
+		}else{
+			resultMessage.setResultCode(ResultCode.Failed);
+			resultMessage.setMessage(proId+"未找到影响含行数小于0");
+		}
+		return resultMessage;
+	}
+	@Override
+	public ResultMessage speciesEdit(String shipmentId,Long shipmentNum,String imStockImWarehouseId) {
 		ResultMessage resultMessage=getResultMessage();
 		ImStock shipmentTmp=imStockDao.queryById(shipmentId);
 		ImStockLog imStockLogTmp=new ImStockLog();

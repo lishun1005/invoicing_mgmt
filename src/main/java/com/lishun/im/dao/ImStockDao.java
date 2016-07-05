@@ -84,5 +84,5 @@ public interface ImStockDao{
 	* @author lishun 
 	* @date 2016年6月1日 下午4:04:23
 	 */
-	public int updateInventory(@Param("id")String id,@Param("action")String action,@Param("num")Integer num);
+	public int updateInventory(@Param("id")String id,@Param("action")String action,@Param("num")Long num);
 }

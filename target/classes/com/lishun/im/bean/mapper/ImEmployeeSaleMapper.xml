@@ -154,5 +154,54 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  
+  <select id="queryList"  resultType="java.util.HashMap">
+     SELECT ies.*,iw.`name` as iwName, iss.`name` as issName,iey.`name` as ieyName,ic.`name` as icName,icm.company as icmName from im_employee_sale ies
+		LEFT JOIN im_warehouse iw on iw.id=ies.im_warehouse_id
+		LEFT JOIN im_species iss on iss.id=ies.im_species_id
+		LEFT JOIN im_employees iey on ies.im_employee_id=iey.id
+		LEFT JOIN im_category ic on ic.id=iss.category_id
+		LEFT JOIN im_company icm on icm.id=iey.company_id
+      <where>
+          <if test="keyword!=null and keyword!=''"> 
+            <bind name="keyword" value="'%' + keyword + '%'" />
+            and (ies.specifications like #{keyword} or iss.name like #{keyword}
+             	or iw.name like #{keyword} or ic.name like #{keyword} or iey.name like #{keyword} 
+             	or icm.company like #{keyword} 
+             )
+          </if>
+          <if test="beginTime!=null and beginTime!=''"> 
+           and ies.create_time>=#{beginTime}
+	      </if>
+	      <if test="endTime!=null and endTime!=''"> 
+	        and ies.create_time&lt;=#{endTime}
+	      </if> 
+      </where>
+      <if test="pageNo!=null and rows!=null" >
+        order by ies.create_time desc limit #{pageNo},#{rows}
+      </if>
+   </select>
+   
+   <select id="queryListCount"  resultType="Long" parameterType="String">
+    SELECT count(*) from im_employee_sale ies
+		LEFT JOIN im_warehouse iw on iw.id=ies.im_warehouse_id
+		LEFT JOIN im_species iss on iss.id=ies.im_species_id
+		LEFT JOIN im_employees iey on ies.im_employee_id=iey.id
+		LEFT JOIN im_category ic on ic.id=iss.category_id
+		LEFT JOIN im_company icm on icm.id=iey.company_id
+     <where>
+        <if test="keyword!=null and keyword!=''"> 
+            <bind name="keyword" value="'%' + keyword + '%'" />
+              and (ies.specifications like #{keyword} or iss.name like #{keyword}
+             	or iw.name like #{keyword} or ic.name like #{keyword} or iey.name like #{keyword} 
+             	or icm.company like #{keyword} 
+             )
+        </if>
+        <if test="beginTime!=null and beginTime!=''"> 
+           and ies.create_time>=#{beginTime}
+        </if>
+         <if test="endTime!=null and endTime!=''"> 
+           and ies.create_time&lt;=#{endTime}
+        </if>
+     </where>
+   </select>
 </mapper>

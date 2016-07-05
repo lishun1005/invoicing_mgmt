@@ -1,6 +1,9 @@
 package com.lishun.im.service.imp;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +24,15 @@ public class SaleManageServiceImpl extends BaseService implements SaleManageServ
 	@Autowired
 	ImEmployeeSaleDao imEmployeeSaleDao;
 	
+	@Override
+	public Map<String, Object> queryListImEmployeeSale(Integer rows, Integer pageNo,
+			String keyword,String beginTime,String endTime) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<Map<String, Object>> list=imEmployeeSaleDao.queryList(rows, pageNo-1, keyword,beginTime,endTime);
+		result.put("list",list);
+		result.put("total", imEmployeeSaleDao.queryListCount(keyword,beginTime,endTime));
+		return result;
+	}
 	
 	@Override
 	public ResultMessage editImEmployeeSale(ImEmployeeSale imEmployeeSale) {
