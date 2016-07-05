@@ -1,0 +1,653 @@
+<!--#set(String manageHost = request.getScheme()+"://"+request.serverName+":"+"a".valueOf(request.serverPort)+request.getContextPath())-->
+<!--#set(com.lishun.im.page.Page<Map<String, Object>> resultPage)-->
+
+<!--#set(List<ImCategory> listCat)-->
+<!--#set(List<ImCompany> listCompany)-->
+
+<!--#set(List<Integer> pageNos = resultPage.getSlider(10))-->
+<!--#set(int totalPage = resultPage.getTotalPages())  -->
+
+<!-- 引入公共头部样式部分 -->
+${include("../public_header.httl")}
+
+<body  class="skin-blue">
+          
+    <!-- header logo: style can be found in header.less -->
+    <header class="header">
+    </header>
+    <div  class="wrapper row-offcanvas row-offcanvas-left">
+        <!-- Left side column. contains the logo and sidebar -->
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <aside class="right-side" style="margin-left: 0px">
+            <!-- Content Header (Page header) -->
+            <section class="content-header ovcl">
+                        <ol class="breadcrumb">
+                            <li><a class="fa fa-dashboard">进货管理</a></li>
+                        </ol>
+                </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- 操作组 -->
+                <form class="uc_cs_form" id="pageForm"
+                    action="${manageHost}/imStock/list.htm" method="get"
+                    class="form-horizontal">
+                    <input type="hidden" id="pageNo" name="pageNo" value="<!--#if("" == request.getParameter("pageNo"))-->${request.getParameter("pageNo")}
+                    <!--#else-->
+                    1
+                    <!--#end-->
+                    "/>
+                    <div class="oper-group">
+                        <span>关键字：</span>
+                        <div class="input-search input-group">
+                            <input type="text" placeholder="keyword" style=""
+                                class="form-control input-sm" name="keyword" value="${keyword}">
+                        </div>
+                        <span>进货时间：</span>
+                        <div class="input-search input-group">
+                            <input placeholder="起始时间" class="form-control nofont_select" size="16" onfocus="$.openCalendar(this)" type="text" name="beginTime" id="beginTime" value="${beginTime }">
+                        </div>
+                        至
+                        <div class="input-search input-group">
+                            <input placeholder="截止时间" class="form-control nofont_select" size="16" onfocus="$.openCalendar(this)" type="text" name="endTime" id="endTime" value="${endTime }">
+                        </div>
+                         <input type="hidden" value="0" name="excel">
+                        <button class="btn btn-info btn-sm ml20">检索</button>
+                        <input type="button" class="btn btn-info btn-sm ml20" onclick="exportExcel()"  value="导出excel表"/>
+                    </div>
+                </form>
+                <!-- /操作组 -->
+                <div class="content-table-title">
+                    <i class="fa fa-pencil"></i>销售信息一览
+                </div>
+                <!-- 列表 -->
+                <table class="table table-bordered table-hover define-name-table">
+                    <thead>
+                        <tr>
+                        	<th width="10%">公司</th>
+                            <th width="5%">姓名</th>
+                            <th width="5%">仓库</th>
+                            <th width="5%">类别</th>
+                            <th width="5%">品种</th>
+                            <th width="5%">规格</th>
+                            <th width="5%">单价</th>
+                            <th width="5%">数量</th>
+                            <th width="5%">总额</th>
+                            <th width="12%">销售时间</th>
+                            <th width="6%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--#if(resultPage.result)-->
+                        <!--#for(Map<String, Object> info : resultPage.result)-->
+                        <tr id="${info.id}">
+                        	<td name="iweName">${info.icmName}</td>
+                        	<td name="iweName">${info.ieyName}</td>
+                            <td name="iweName">${info.iwName}</td>
+                            <td style="display: none" name="iweId">${info.iweId}</td>
+                            <td name="icyName">${info.icName}</td>
+                            <td style="display: none" name="icyId">${info.icyId}</td>
+                            <td style="display: none" name="imSpeciesId">${info.im_species_id}</td>
+                            <td name="issName">${info.issName}</td>
+                            <td name="specifications">${info.specifications}</td>
+                            <td name="num">${info.sale_price}</td>
+                            <td name="num">${info.num}</td>
+                            <td name="num">${info.count_price}</td>
+                      
+                            <td style="display: none" name="isPromotion">${info.is_promotion}</td>
+                            <td style="display: none" name="promotionPrice">${info.promotion_price}</td>
+                            <td style="display: none" name="promotionEndtime">${dateFormat(info.promotion_endtime,"yyyy/MM/dd")}</td>
+                            <td>${info.create_time}</td>
+                            <td>
+                                <a href="javascript:void(0);" onclick="editData('${info.id}')">更新</a>
+                            </td>
+                        </tr>
+                        <!-- #end -->
+                        <!--#else -->
+                        <tr>
+                            <td colspan="10" align="center"><font color="red">查找不到用户记录</font></td>
+                        </tr>
+                        <!--#end-->
+                    </tbody>
+                </table>
+                <!-- /列表 -->
+
+                <!-- 分页 -->
+                <!--#if(pageNos)-->
+                <div class="dataTables_paginate paging_bootstrap fl">
+                    <input type="hidden" id="totalPage" value="${totalPage}"></input>
+                    <ul class="pagination">
+                        <li class="prev">
+                            <!--#if(resultPage.hasPrePage)--> <a
+                            href="javascript:complaintFormPage(${resultPage.prePage});">上一页</a>
+                            <!--#else --> <!--  <a href="javascript:void(0);">上一页</a> --> <!-- #end -->
+                        </li>
+                        <!--#for(Integer userInfoPageNo : pageNos)-->
+                        <li
+                            <!--#if(userInfoPageNo == resultPage.pageNo)-->class="active"<!--#end-->>
+                            <a href="javascript:complaintFormPage(${userInfoPageNo});">${userInfoPageNo}</a></li>
+                        <!--#end-->
+
+                        <li class="next">
+                            <!--#if(resultPage.hasNextPage)--> <a
+                            href="javascript:complaintFormPage(${resultPage.nextPage});">下一页</a>
+                            <!--#else --> <!--  <a href="javascript:void(0);">下一页</a> --> <!-- #end -->
+                        </li>
+                    </ul>
+                </div>
+                <div class="fl page-go">
+                    当前第 ${resultPage.pageNo} 页 总记录数为 ${resultPage.totalItems}条 <span
+                        class="ml20"> 跳转到第 <input id="goPage"
+                        value="${resultPage.pageNo}" class="integer" /> 页<a
+                        href="javascript:complaintFormGoPage();"
+                        class="btn btn-info btn-sm ml20">GO</a>
+                </div>
+                <!--#end-->
+                <!-- /分页 -->
+            </section>
+            <!-- /.content -->
+        </aside>
+        <!-- /.right-side -->
+    </div>
+    <!-- ./wrapper -->
+
+    
+    <div class="modal fade " id="editDataModal" tabindex="-1" role="dialog"
+		style="z-index: 10" aria-labelledby="infoModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="width: 500; overflow-y: auto;">
+				<div class="modal-header" id="firstDiv" style="text-align: center">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="infoModalName"
+						style="font-weight: bold;">编辑商品</h4>
+				</div>
+				<div class="modal-body" id="addDiv" style="">
+					<form id="editDataForm" action="${manageHost}/imStock/edit" method="post" class="form-inline"
+						enctype="multipart/form-data">
+
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                               <label class="control-label">&nbsp&nbsp仓库:</label> 
+	                           <input type="hidden" class="form-control" name="id" required="required"/>
+	                           <select class="form-control" id="imWarehouseId"  name="imWarehouseId"  >
+	                           <!--#for(ImWarehouse info2 : listImWarehouse)-->
+			                         <option value="${info2.id}" >${info2.name}</option>
+			                   <!-- #end -->
+	                          </select>
+                            </div>
+						</div>
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp品种:</label> 
+                               <select class="form-control"  name="listCat" onchange="selectChange(this)">
+	                          	<!--#for(ImCategory info1 : listCat)-->
+			                         <option  value="${info1.id}" >${info1.name}</option>
+			                    <!-- #end -->
+	                          </select>
+	                          <select class="form-control" id="imSpeciesSelect"  name="imSpeciesId">
+	                          	
+	                          </select>
+                            </div>
+						</div>
+						
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp规格:</label> 
+                              <input type="text" width="" class="form-control" onblur="checkStock(this)" name="specifications" required="required"/>
+                            </div>
+						</div>
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp库存:</label> 
+                              <input type="text " width="" class="form-control integer" name="inventory" required="required"/>
+                            </div>
+						</div>
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">&nbsp进货价:</label> 
+                              <input type="text" width="" class="form-control" name="purchasePrice" pattern="^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$" required="required"/>
+                            </div>
+						</div>
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">&nbsp内部价:</label> 
+                              <input type="text" width="" class="form-control" name="insidePrice" pattern="^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$" required="required"/>
+                            </div>
+						</div>
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">&nbsp外部价:</label> 
+                              <input type="text" width="" class="form-control" name="outsidePrice" pattern="^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$" required="required"/>
+                            </div>
+						</div>
+						
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">是否促销:</label> 
+                              <select class="form-control" name='isPromotion'>
+                              	<option value="0">否</option>
+                              	<option value="1">是</option>
+                              </select>
+                            </div>
+						</div>
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">&nbsp促销价:</label> 
+                              <input type="text" width="" class="form-control" name="promotionPrice" pattern="^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$" />
+                            </div>
+						</div>
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                              <label class="control-label">促销截止时间时间:</label> 
+                              <input type="text" class="form-control"  id="promotionEndtime" name="promotionEndtime" readonly="readonly" style="cursor: pointer; background-color: white;"
+                                 />
+                            </div>
+						</div>
+                        <div class="form-line addShow"
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                        </div>
+					</form>
+					<div class="modal-footer">
+	                    <button type="button" class="btn btn-primary" onclick="editDataFormSubmit()">提交</button>
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                </div> 
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<div class="modal fade " id="saleDataModal" tabindex="-1" role="dialog"
+        style="z-index: 10" aria-labelledby="infoModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 500; height:600px; overflow-y: auto;">
+                <div class="modal-header" id="firstDiv" style="text-align: center">
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="infoModalName"
+                        style="font-weight: bold;">销售商品</h4>
+                </div>
+                <div class="modal-body" id="addDiv" style="">
+                    <form id="saleDataForm" action="${manageHost}/imEmployeeSale/edit" method="post" class="form-inline"
+                        enctype="multipart/form-data">
+                        
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp员工:</label> 
+                               <select class="form-control"  name="company" onchange="companyChange(this)">
+                               <!--#for(ImCompany info3 : listCompany)-->
+                                     <option value="${info3.id}" >${info3.company}</option>
+                                <!-- #end -->
+                              </select>
+                              <select class="form-control" id="employeeSel"  name="imEmployeeId">
+                                
+                              </select>
+                              
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                               <label class="control-label">&nbsp&nbsp仓库:</label> 
+                               <input type="hidden" class="form-control" name="id" required="required"/>
+                               <select class="form-control" id="imWarehouseId"  name="imWarehouseIdSel"  >
+                               <!--#for(ImWarehouse info4 : listImWarehouse)-->
+                                     <option value="${info4.id}" >${info4.name}</option>
+                               <!-- #end -->
+                              </select>
+                              <input type="hidden" name="imWarehouseId">
+                              <input type="hidden" name="imSpeciesId">
+                              <input type="hidden" name="proId">
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp品种:</label> 
+                               <select class="form-control"  name="listCatSel" onchange="selectChange1(this)">
+                                <!--#for(ImCategory info5 : listCat)-->
+                                     <option  value="${info5.id}" >${info5.name}</option>
+                                <!-- #end -->
+                              </select>
+                              <select class="form-control" id="imSpeciesSelect1"  name="imSpeciesIdSel">
+                                
+                              </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp规格:</label> 
+                              <input type="text" width="" class="form-control" onblur="checkStock(this)" readonly="readonly" name="specifications" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp库存:</label> 
+                              <input type="text " width="" class="form-control integer" name="inventory" readonly="readonly" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp单价:</label> 
+                              <input type="text" width="" class="form-control" readonly="readonly" name="salePrice" pattern="^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp数量:</label> 
+                              <input type="text" width="" class="form-control integer" name="num"   onblur="countPriceBlur(this)" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp总额:</label> 
+                              <input type="text" width="" class="form-control integer" name="countPrice"  readonly="readonly" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp开单人:</label> 
+                              <input type="text" width="" class="form-control integer" name="billingBy"  required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">提货单号:</label> 
+                              <input type="text" width="" class="form-control integer" name="proNo"  required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">收货单位:</label> 
+                              <input type="text" width="" class="form-control integer" name="receiveAddr"  required="required"/>
+                            </div>
+                        </div>
+                         <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">&nbsp&nbsp备注:</label> 
+                              <input type="text" width="" class="form-control integer" name="remark"  required="required"/>
+                            </div>
+                        </div>
+                         <div class="form-line "
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                            <div class="form-group" >
+                              <label class="control-label">是否付款:</label> 
+                              <select class="form-control"  name="isPrice">
+                                    <option value="1">否</option>
+                                    <option value="0">是</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="form-line addShow"
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="saleDataFormSubmit()">提交</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 引用公共底部样式部分 -->
+    ${include("../public_footer.httl")}
+    <script type="text/javascript" src="${manageHost}/js/base/formValidata.js"></script>
+    <script type="text/javascript">
+    
+     function exportExcel(){
+	   	$("#pageForm").find("input[name='excel']").val("1");
+	   	$("#pageForm").submit();
+	   	$("#pageForm").find("input[name='excel']").val("0");
+     }
+     function saleDataFormSubmit(){
+    	 if(checkFormValue("saleDataForm")){
+             $('#saleDataForm').submit();
+          } 
+     }
+     function countPriceBlur(obj){
+    	 var num=$(obj).val();
+       	 var inventory=$("#saleDataForm").find("input[name='inventory']").val();
+       	 if(parseInt(num)>parseInt(inventory)){
+       		 alert("出货数量必须小于库存量");
+       		 $("#saleDataForm").find("input[name=countPrice]").val("");
+       		 $(obj).val("");
+       		 return;
+       	 }
+    	 var salePrice=$("#saleDataForm").find("input[name=salePrice]").val();
+    	 var countPrice=parseFloat(salePrice)*parseInt(num);
+    	 $("#saleDataForm").find("input[name=countPrice]").val(countPrice);
+     }
+     var imSpeciesId1="";
+     function saleData(id){
+         imSpeciesId="";
+         var form=$("#saleDataForm");
+         form.find("input").val("");
+         var tr =$("#"+id);
+         var iweId=tr.find("td[name='iweId']").text();
+         var icyId=tr.find("td[name='icyId']").text();
+         var specifications=tr.find("td[name='specifications']").text();
+         var inventory=tr.find("td[name='inventory']").text();
+         var insidePrice=tr.find("td[name='insidePrice']").text();
+         var outsidePrice=tr.find("td[name='outsidePrice']").text();
+         var purchasePrice=tr.find("td[name='purchasePrice']").text();
+         var isPromotion=tr.find("td[name='isPromotion']").text();
+         var promotionPrice=tr.find("td[name='promotionPrice']").text();
+         var promotionEndtime=tr.find("td[name='promotionEndtime']").text();
+         
+         imSpeciesId1=tr.find("td[name='imSpeciesId']").text();
+         form.find("select[name='imWarehouseIdSel']").val(iweId);
+         form.find("input[name='imWarehouseId']").val(iweId);
+         
+         form.find("select[name='listCatSel']").val(icyId);
+         form.find("select[name='company']").change();
+         form.find("select[name='listCatSel']").change();
+         form.find("select[name='imWarehouseIdSel']").attr("disabled","disabled");
+         if(isPromotion=="false"){//不用促销价
+             form.find("input[name='salePrice']").val(insidePrice);
+         }else{
+             form.find("input[name='salePrice']").val(promotionPrice);
+         }
+         form.find("select[name='listCatSel']").attr("disabled","disabled");
+         form.find("select[name='imSpeciesIdSel']").attr("disabled","disabled");
+         
+         form.find("input[name='proId']").val(id);
+         form.find("input[name='imSpeciesId']").val(imSpeciesId1);
+         
+         form.find("input[name='promotionPrice']").val(promotionPrice); 
+         form.find("input[name='promotionEndtime']").val(promotionEndtime); 
+         
+         form.find("input[name='specifications']").val(specifications); 
+         form.find("input[name='inventory']").val(inventory); 
+         form.find("input[name='insidePrice']").val(insidePrice); 
+         form.find("input[name='outsidePrice']").val(outsidePrice); 
+         form.find("input[name='purchasePrice']").val(purchasePrice); 
+         $('#saleDataModal').modal({ keyboard: false,backdrop:false});
+     }
+     function checkStock(obj){
+    	 var form=$("#editDataForm");
+    	 var imWarehouseId=form.find("select[name='imWarehouseId']").val();
+    	 var id=form.find("input[name='id']").val();
+    	 var imSpeciesId=form.find("select[name='imSpeciesId']").val();
+    	 var specifications=$(obj).val();
+    	 $.ajax({
+             url:"${manageHost}/imStock/queryByIds",
+             data:{"imWarehouseId":imWarehouseId,"imSpeciesId":imSpeciesId,"specifications":specifications},
+             type:"get",
+             success:function(res){
+            	 if(res!=""){
+                      if(id!=res.id){
+                     	 $(obj).val("");
+                          alert("该规格的商品已经存在");
+                      }
+            	 }
+                
+             }
+         });
+     }
+     
+     function companyChange(obj){
+    	 $("#employeeSel").find("option").remove();
+         var categoryId=$(obj).val();
+         $.ajax({
+             url:"${manageHost}/imStock/queryListByCompanyId?id="+categoryId,
+             type:"get",
+             success:function(res){
+                 var list=eval(res);
+                 for(i=0;i<list.length;i++){
+                     var optionHtml="";
+                     if(imSpeciesId==list[i].id){
+                         optionHtml="<option selected='selected' value='"+list[i].id+"'>"+list[i].name+"</option>";
+                     }else{
+                         optionHtml="<option value='"+list[i].id+"'>"+list[i].name+"</option>";
+                     }
+                     $("#employeeSel").append(optionHtml);
+                 }
+             }
+         })
+     }
+     function selectChange(obj){
+    	 $("#imSpeciesSelect").find("option").remove();
+    	 var categoryId=$(obj).val();
+    	 $.ajax({
+    		 url:"${manageHost}/imStock/queryListByCategoryId?categoryId="+categoryId,
+    		 type:"get",
+    		 success:function(res){
+    			 var list=eval(res);
+    			 for(i=0;i<list.length;i++){
+    				 var optionHtml="";
+    				 if(imSpeciesId==list[i].id){
+    					 optionHtml="<option selected='selected' value='"+list[i].id+"'>"+list[i].name+"</option>";
+    				 }else{
+    					 optionHtml="<option value='"+list[i].id+"'>"+list[i].name+"</option>";
+    				 }
+    				 $("#imSpeciesSelect").append(optionHtml);
+    			 }
+    		 }
+    	 })
+     }
+     function selectChange1(obj){
+         $("#imSpeciesSelect1").find("option").remove();
+         var categoryId=$(obj).val();
+         $.ajax({
+             url:"${manageHost}/imStock/queryListByCategoryId?categoryId="+categoryId,
+             type:"get",
+             success:function(res){
+                 var list=eval(res);
+                 for(i=0;i<list.length;i++){
+                     var optionHtml="";
+                     if(imSpeciesId1==list[i].id){
+                         optionHtml="<option selected='selected' value='"+list[i].id+"'>"+list[i].name+"</option>";
+                     }else{
+                         optionHtml="<option value='"+list[i].id+"'>"+list[i].name+"</option>";
+                     }
+                     $("#imSpeciesSelect1").append(optionHtml);
+                 }
+             }
+         })
+     }
+     var imSpeciesId="";
+     
+     function editData(id){
+    	 imSpeciesId="";
+    	 var form=$("#editDataForm");
+    	 form.find("input").val("");
+    	 if(id==""){
+    		 form.find("select[name='listCat']").change();
+    		 form.find("select[name='imWarehouseId']").removeAttr("disabled");
+             form.find("select[name='listCat']").removeAttr("disabled");
+             form.find("select[name='imSpeciesId']").removeAttr("disabled");
+    	 }else{
+    		 var tr =$("#"+id);
+    		 var iweId=tr.find("td[name='iweId']").text();
+    		 var icyId=tr.find("td[name='icyId']").text();
+    		 var specifications=tr.find("td[name='specifications']").text();
+    		 var inventory=tr.find("td[name='inventory']").text();
+    		 var insidePrice=tr.find("td[name='insidePrice']").text();
+    		 var outsidePrice=tr.find("td[name='outsidePrice']").text();
+    		 var purchasePrice=tr.find("td[name='purchasePrice']").text();
+    		 var isPromotion=tr.find("td[name='isPromotion']").text();
+    		 var promotionPrice=tr.find("td[name='promotionPrice']").text();
+    		 var promotionEndtime=tr.find("td[name='promotionEndtime']").text();
+    		 
+    		 imSpeciesId=tr.find("td[name='imSpeciesId']").text();
+    		 form.find("select[name='imWarehouseId']").val(iweId);
+    		 form.find("select[name='listCat']").val(icyId);
+    		 form.find("select[name='listCat']").change();
+    		 form.find("select[name='imWarehouseId']").attr("disabled","disabled");
+    		 if(isPromotion=="false"){
+    			 form.find("select[name='isPromotion']").val(0);
+    		 }else{
+    			 form.find("select[name='isPromotion']").val(1);
+    		 }
+    		 form.find("select[name='listCat']").attr("disabled","disabled");
+    		 form.find("select[name='imSpeciesId']").attr("disabled","disabled");
+    		 
+    		 form.find("input[name='promotionPrice']").val(promotionPrice); 
+    		 form.find("input[name='promotionEndtime']").val(promotionEndtime); 
+    		 
+    		 form.find("input[name='specifications']").val(specifications); 
+    		 form.find("input[name='inventory']").val(inventory); 
+    		 form.find("input[name='insidePrice']").val(insidePrice); 
+    		 form.find("input[name='outsidePrice']").val(outsidePrice); 
+    		 form.find("input[name='purchasePrice']").val(purchasePrice); 
+    		 form.find("input[name='id']").val(id); 
+    	 }
+    	 $('#editDataModal').modal({ keyboard: false,backdrop:false});
+     }
+     
+     
+     function editDataFormSubmit(){
+	     if(checkFormValue("editDataForm")){
+	     	$('#editDataForm').submit();
+	  	 }    
+     }
+     function del(id){
+         if (confirm("你确定删除吗？")) {
+             window.location.href = "${manageHost}/imStock/del?id=" + id;
+         }
+     }
+     
+     $(function(){
+    	 $('#promotionEndtime').datepicker({
+				dateFormat: 'yy/mm/dd',
+				 showMonthAfterYear: true,
+				showButtonPanel: true
+		});
+        //弹出框高度对页面高度的控制
+        dialog_show_hide("saleDataModal","editDataModal");
+        window.parent.$("#waiting").hide();
+     })
+     //标签的onchange事件
+     window.addEventListener("load", loadinvalidHandler(new Array(["editDataForm"])), false); 
+     </script>
+</body>
