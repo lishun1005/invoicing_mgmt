@@ -258,10 +258,16 @@ ${include("../public_header.httl")}
      <script type="text/javascript">
      function shipmentNumCheck(obj){
     	 var shipmentNum=$(obj).val();
-    	 var inventory=$("#editDataForm").find("input[name='inventory']").val();
-    	 if(parseInt(shipmentNum)>parseInt(inventory)){
-    		 alert("出货数量必须小于库存量");
-    		 $(obj).val("");
+    	 if(shipmentNum>0){
+    		 var inventory=$("#editDataForm").find("input[name='inventory']").val();
+        	 if(parseInt(shipmentNum)>parseInt(inventory)){
+        		 alert("出货数量必须小于库存量");
+        		 $(obj).val("");
+        	 }
+    	 }
+    	 else{
+    		 alert("出货数量必须大于0");
+       		 $(obj).val("");
     	 }
      }
      function search(){

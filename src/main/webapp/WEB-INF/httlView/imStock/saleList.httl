@@ -30,7 +30,7 @@ ${include("../public_header.httl")}
             <section class="content">
                 <!-- 操作组 -->
                 <form class="uc_cs_form" id="pageForm"
-                    action="${manageHost}/imStock/list.htm" method="get"
+                    action="${manageHost}/imEmployeeSale/list.htm" method="get"
                     class="form-horizontal">
                     <input type="hidden" id="pageNo" name="pageNo" value="<!--#if("" == request.getParameter("pageNo"))-->${request.getParameter("pageNo")}
                     <!--#else-->
@@ -99,7 +99,7 @@ ${include("../public_header.httl")}
                             <td style="display: none" name="promotionEndtime">${dateFormat(info.promotion_endtime,"yyyy/MM/dd")}</td>
                             <td>${info.create_time}</td>
                             <td>
-                                <a href="javascript:void(0);" onclick="editData('${info.id}')">更新</a>
+                                <a href="javascript:void(0);" onclick=""></a>
                             </td>
                         </tr>
                         <!-- #end -->
