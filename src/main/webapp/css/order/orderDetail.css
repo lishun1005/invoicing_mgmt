@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+
+.wait-paying >*{display:inline-block;vertical-align: middle;}
+.pay-moreTime{margin-left: 45px;margin-top: 5px;}
+.pay-moreTime p{color: #777;line-height: 20px;}
+
+.bg-lightblue{background-color: #f7f7f7;font-weight: bold;}
+.border-grey{border:1px solid #e5e5e5}
+.bg-lightgrey{background-color:white;font-size: 13px;font-weight: bold;}
+.special-info{font-size:12px;}
+
+

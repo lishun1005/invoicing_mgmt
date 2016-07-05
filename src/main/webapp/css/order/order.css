@@ -1,0 +1,122 @@
+@CHARSET "UTF-8";
+
+/* 优惠券 */
+.order-need-coupon .square-checkbox2,.coupon-contain .square-checkbox2{top:-8px;}
+.need-something{width:100px;}
+.coupon-list>div{margin-bottom:10px;}
+.coupon-contain >*{padding:10px;}
+.use-coupon{border-top:1px solid #f0f0f0;padding-top:20px;}
+
+.window_pop_bg{z-index:30000;}
+.dialog-define,.added-successfully{z-index:30001;}
+.order-chose-pay >div{float:left;border:2px solid #F8CCC3;}
+.order-chose-pay >div.active,.order-chose-pay >div:hover{border-color: #FE5F3E;}
+.order-chose-pay >div.active a i{display:block;}
+.order-chose-pay >div a{float:left;height:58px;background:white;position:relative;width:209px;}
+.order-chose-pay > div a img{display:block;margin: 0 auto;}
+.order-chose-pay >div a i{position:absolute;  color: white;background-color:#FE5F3E;bottom:-1px;right:-2px;padding:0 2px;font-size:15px;display:none;}
+
+.coupon-title.active{border-bottom:1px solid #d3d3d3;}
+.coupon-inner-contain{padding:20px;}
+.coupon-input-list input{width:90px;text-align:center;}
+.coupon-add-btn{cursor:pointer;width:72px;height:26px;line-height:26px;border:1px solid #a9ccde;background:url(../../images/images2/userCenter/anniu_onepx.png) repeat-x;font-size:14px;color:#666;text-align:center;}
+.coupon-add-contain .inner-fl{line-height: 26px;}
+.coupon-add-contain{border-bottom:1px solid #f0f0f0;}
+.coupon-canuse-contain{width:100%;border:1px solid #ddd;}
+.coupon-canuse-contain thead{background:#F7F7F7;}
+.coupon-canuse-contain tbody tr td{border-top:1px solid #f0f0f0;}
+.coupon-canuse-contain tbody tr:first-child td{border-top:none;}
+.coupon-canuse-contain .square-checkbox2{top: inherit;display: block;float: none;margin: 0 auto;}
+
+.uc_myorder_menu_a a:hover:hover{color: #333333;cursor:default;}
+.coupon-canuse-contain tr.no-use{cursor:not-allowed;color:#aaa;}
+.coupon-canuse-contain tr.no-use .square-checkbox2.no-use{opacity:0.4;filter:alpha(opacity=40);}
+
+/* 我的订单 */
+.table-white.table > thead > tr > th {background:white;border-bottom:none;}
+.table.mb0{margin-bottom:0;}
+.bg-lightgrey{background-color:#F7F7F7;}
+.uc-mytabledetail-title span{margin-right: 20px;}
+.border-lightgrey.table .uc-mytabledetail-title td{border-bottom: 1px solid #e5e5e5;text-align: left;}
+.border-lightgrey.table td{border-top: 1px solid #e5e5e5;padding-bottom: 15px;padding-top: 15px;}
+.border-lightgrey.table .uc-mytabledetail-title td{padding-bottom: 8px;padding-top: 8px;}
+.uc-myorder-table .btn2{border-radius:0px;padding: 4px 7px;line-height:18px;}
+.uc-myorder-table td p{text-align:center;margin-bottom: 5px;}
+.uc-myorder-table td.order-description p{text-align:left;}
+.order-img p{background-color:#F8F8F8;height:26px;line-height:26px;color:#333;}
+.order-img{width:88px;margin: 0 auto;}
+.uc-myorder-table img{width:88px;height:88px;}
+.uc-myorder-table {color: #333;}
+.uc-myorder-table s{color: #999999;}
+.contact-us{margin: 0 auto;width: 85px;}
+.uc-myorder-table td .contact-us p{text-align: left;color: #999999;}
+.uc-myorder-table tbody td.rows-td-bl{border-left: 1px solid #e5e5e5;}
+.multiply-pay,.view-progress{position:absolute;border:1px solid #f9602b;background:white;top: 23px;display:none;z-index: 2;}
+.multiply-pay{width: 200px;left: -50px;padding: 5px 0;}
+.multiply-pay span,.view-progress div p:first-child span{color:#BDBDBD;margin-right: 5px;}
+.multiply-pay .current-step,.multiply-pay .current-step span{color:#f9602b;}
+.multiply-pay .sj-to-top,.view-progress .sj-to-top{top: -14px;border-bottom-color: #f9602b;border-width: 7px;left: 45%;}
+.multiply-pay .sj-to-top .sj-to-top,.view-progress .sj-to-top .sj-to-top{border-bottom-color: white;left: -7px;top: -6px;}
+.multiply-pay-contain:hover .multiply-pay{display:block;}
+.multiply-pay-contain:hover .a-oper,.view-progress-contain:hover .a-oper{color: #f9602b;}
+.view-progress{width: 265px;left: -78px;}
+.view-progress div{padding:5px 10px;}
+.view-progress div p{text-align:left;margin-bottom: 2px;padding-left:15px;}
+.view-progress div p:first-child{color:#999999;padding-left:0px;}
+.view-progress div p:first-child span{margin-right: 5px;color:#BDBDBD;}
+.view-progress-contain:hover .view-progress{display:block;}
+.view-progress >div.current-step,.view-progress div.current-step p:first-child span,.view-progress div.current-step p:first-child{color:#f9602b;}
+.uc-myorder-table .square-checkbox2{float: none;margin:0 0 0 8px;width: 18px;}
+.my-cart-title .btn2{font-size: 14px;padding: 4px 15px;}
+.special-info td p{text-align:left;color:#999999;}
+
+/*支付页面*/
+.chose-pay-top{border:1px solid #FFC4B8;background:#FFF7EC;padding: 25px;}
+.chose-pay-top .fr{height:56px;line-height:56px;border-left:1px solid #FFC4B8;padding-left:50px;}
+.chose-pay-description{}
+.chose-pay-description span{float:left;color: #999;}
+.chosePay-containter{background:#F8F8F8;padding: 25px;height:150px;}
+
+.must-realname .btn2{font-size: 14px;margin-left: 30px;margin-top: 20px;}
+.orer-data-for input{height:30px;border:1px solid #ccc;padding-left:10px;line-height:30px;width:375px;}
+.orer-data-for input:focus{height:30px;}
+table.bg-lightblue thead th{border-bottom:none;}
+.electronic-contract{}
+.electronic-contract i{margin:2px 5px 0 0;}
+.electronic-contract-outerbox{z-index: 1;border: 4px solid #85c3f2;border-radius: 5px;box-shadow: 0 0 9px #535353;padding:0 20px 20px;width:665px;position:fixed;margin-top:-240px;margin-left:-369px;top:50%;left:50%;background:#f7f7f7;}
+.electronic-contract-innderbox{overflow: auto;background:white;height:388px;padding:15px 10px;}
+.electronic-contract-colse{background:transparent url("../../images/images2/userCenter/close_tck.png") no-repeat scroll 3px 2px;height:25px;top:40%;width:25px;border:none;}
+.electronic-contract-innderbox p{text-align:left;line-height: 25px;}
+.electronic-contract-innderbox .border-lightgrey.table td{padding-bottom: 8px;padding-top: 8px;}
+.electronic-contract-mapPosition{margin: 0 auto;width: 428px;}
+
+/*购物车*/
+.usercenter-left.fix{position: fixed;top: 10px;}
+.cart-seeMore{width:420px;padding:10px 0;}
+.cart-seeMore a{font-size: 14px;padding: 7px 15px;margin-top: 0;}
+.order-error{width: 250px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

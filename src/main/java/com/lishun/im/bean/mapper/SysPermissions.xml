@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   
+    "-//mybatis.org//DTD Mapper 3.3//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.lishun.im.dao.SysPermissionsDao">
+	<resultMap type="SysPermissions" id="ListSysPermissions">
+    </resultMap>
+    
+  
+  <insert id="save" parameterType="SysPermissions" >
+    insert into im_sys_permissions (id, permission, description, 
+      available)
+    values (#{id,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{available,jdbcType=BIT})
+  </insert>
+  
+  <select id="getSysPermissionsByPermission"  resultMap="ListSysPermissions">
+      select *  from im_sys_permissions 
+      <where>
+          <if test="permission!=null and permission!=''"> 
+            and permission=#{permission}
+          </if>
+      </where>
+   </select>
+   
+   
+   <select id="querySysPermissionListMap"  resultMap="ListSysPermissions">
+      select *  from im_sys_permissions 
+      <where>
+	      <if test="keyword!=null and keyword!=''"> 
+	        <bind name="keyword" value="'%' + keyword + '%'" />
+	        and permission like #{keyword}  or description like #{keyword}
+	      </if>
+      </where>
+      order by create_time desc limit #{pageNo},#{rows}
+   </select>
+   
+   <select id="querySysPermissionListMapCount"  resultType="Long" parameterType="String">
+     select count(*)  from im_sys_permissions 
+     <where>
+     	<if test="keyword!=null and keyword!=''"> 
+        <bind name="keyword" value="'%' + keyword + '%'" />
+        and permission like #{keyword}  or description like #{keyword}
+      </if> 
+     </where>
+   </select>
+    <delete id="delete" parameterType="String">
+   	delete from im_sys_permissions where id=#{sysPermissionId}
+   </delete>
+</mapper> 

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lishun.im.dao.ImStockLogDao">
+  <resultMap id="BaseResultMap" type="com.lishun.im.bean.ImStockLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="im_warehouse_id" jdbcType="VARCHAR" property="imWarehouseId" />
+    <result column="im_species_id" jdbcType="VARCHAR" property="imSpeciesId" />
+    <result column="specifications" property="specifications" jdbcType="VARCHAR" />
+    <result column="operate_num" jdbcType="BIGINT" property="operateNum" />
+    <result column="operate_action" jdbcType="INTEGER" property="operateAction" />
+    <result column="operate_by" jdbcType="INTEGER" property="operateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.lishun.im.bean.ImStockLog">
+    insert into im_stock_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="imWarehouseId != null">
+        im_warehouse_id,
+      </if>
+      <if test="imSpeciesId != null">
+        im_species_id,
+      </if>
+      <if test="specifications != null" >
+        specifications,
+      </if>
+      <if test="operateNum != null">
+        operate_num,
+      </if>
+      <if test="operateAction != null">
+        operate_action,
+      </if>
+      
+      <if test="operateBy != null">
+        operate_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+     
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="imWarehouseId != null">
+        #{imWarehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="imSpeciesId != null">
+        #{imSpeciesId,jdbcType=VARCHAR},
+      </if>
+       <if test="specifications != null" >
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="operateNum != null">
+        #{operateNum,jdbcType=BIGINT},
+      </if>
+      <if test="operateAction != null">
+        #{operateAction,jdbcType=INTEGER},
+      </if>
+      <if test="operateBy != null">
+        #{operateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="queryList"  resultType="java.util.HashMap">
+      select isk.*,iss.name issName,iwe.name iweName,iwe.id iweId,icy.name icyName,icy.id icyId from im_stock_log isk
+        left join im_species iss on iss.id=isk.im_species_id
+        left join im_warehouse iwe on iwe.id=isk.im_warehouse_id
+        left JOIN im_category icy on icy.id=iss.category_id
+      <where>
+          <if test="keyword!=null and keyword!=''"> 
+            <bind name="keyword" value="'%' + keyword + '%'" />
+            and (isk.specifications like #{keyword} or iss.name like #{keyword}
+                or isk.operate_by like #{keyword} or  iwe.name like #{keyword} or icy.name like #{keyword} 
+             )
+          </if>
+          <if test="beginTime!=null and beginTime!=''"> 
+           and isk.create_time>=#{beginTime}
+          </if>
+          <if test="endTime!=null and endTime!=''"> 
+            and isk.create_time&lt;=#{endTime}
+          </if> 
+          <if test="operateAction!=null"> 
+            and isk.operate_action=#{operateAction}
+          </if>
+          
+      </where>
+      <if test="pageNo!=null and rows!=null" >
+        order by isk.create_time desc limit #{pageNo},#{rows}
+      </if>
+   </select>
+   
+   <select id="queryListCount"  resultType="Long" parameterType="String">
+     select count(*)  from  im_stock_log isk
+        left join im_species iss on iss.id=isk.im_species_id
+        left join im_warehouse iwe on iwe.id=isk.im_warehouse_id
+        left JOIN im_category icy on icy.id=iss.category_id
+     <where>
+        <if test="keyword!=null and keyword!=''"> 
+            <bind name="keyword" value="'%' + keyword + '%'" />
+             and (isk.specifications like #{keyword} or iss.name like #{keyword}
+                or isk.operate_by like #{keyword} or iwe.name like #{keyword} or icy.name like #{keyword} 
+             )
+        </if>
+        <if test="beginTime!=null and beginTime!=''"> 
+           and isk.create_time>=#{beginTime}
+        </if>
+         <if test="endTime!=null and endTime!=''"> 
+           and isk.create_time&lt;=#{endTime}
+        </if>
+        <if test="operateAction!=null"> 
+            and isk.operate_action=#{operateAction}
+          </if> 
+     </where>
+   </select>
+ 
+</mapper>

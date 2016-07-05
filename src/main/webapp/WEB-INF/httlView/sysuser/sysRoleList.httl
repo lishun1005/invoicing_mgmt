@@ -1,0 +1,310 @@
+<!--#set(String manageHost = request.getScheme()+"://"+request.serverName+":"+"a".valueOf(request.serverPort)+request.getContextPath())-->
+<!--#set(com.lishun.im.page.Page<SysRole> sysRolePage)-->
+<!--#set(List<Integer> pageNos = sysRolePage.getSlider(10))-->
+<!--#set(int totalPage = sysRolePage.getTotalPages())  -->
+
+   <!-- 引入公共头部样式部分 -->
+    ${include("../public_header.httl")}
+    
+    <body class="skin-blue">
+        <!-- header logo: style can be found in header.less -->
+        <header class="header">
+        </header>        
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside  class="right-side" style="margin-left: 0px">
+                <!-- Content Header (Page header) -->
+                <section class="content-header ovcl">
+	                    <ol class="breadcrumb">
+	                        <li><a class="fa fa-dashboard">后台角色管理</a></li>
+	                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                <!-- 操作组 -->
+               <form class="uc_cs_form" id="pageForm" action="${manageHost}/sysuser/sysRoleList.htm" method="get" class="form-horizontal">
+	       		<input type="hidden" id="pageNo" name="pageNo" value="<!--#if("" == request.getParameter("pageNo"))-->${request.getParameter("pageNo")}<!--#else-->1<!--#end-->"/>	       		
+	                <div class="oper-group">
+	                	<span>关键字：</span>
+	                	<div class="input-search input-group">
+	                        <input type="text" placeholder="角色名，描述" style="" class="form-control input-sm" name="keyword" value="${keyword}">
+	                    </div>
+		                <button class="btn btn-info btn-sm ml20">检索</button>
+	                </div>
+	             </form>  
+	            <!-- /操作组 -->
+					<div class="content-table-title">
+						<i class="fa fa-pencil"></i> 后台角色信息一览<button class="btn btn-info btn-sm ml20" onclick="sysRoleAdd()">新增后台角色</button>
+					</div>
+					
+				<!-- 列表 -->
+					<table class="table table-bordered table-hover define-name-table">
+						<thead>
+							<tr>
+								<!-- <th width="2%"></th>
+								<th width="10%">角色id</th> -->
+								<th width="10%">角色名</th>
+								<th width="13%">角色描述</th>
+								<th width="10%">是否可用</th>
+								<th width="10%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+						   <!--#if(sysRolePage.result)-->
+							  <!--#for(SysRole sysrole : sysRolePage.result)-->
+							  <tr id="${sysrole.id}">
+							     <!-- <td><input type="checkbox" id="define-td1"></td>
+							     <td>${sysrole.id}</td> -->
+							     <td name="role">${sysrole.role}</td>
+				       			 <td name="description">${sysrole.description}</td>
+				       			 <td name="available">${sysrole.available}</td>
+				       			 <td>
+				       			 <a href="javascript:void(0);" onclick="sysRoleUpdate('${sysrole.id}')">更新</a>
+				       			 <!--#if(sysrole.role.equals("admin")) -->
+								<a href="javascript:void(0);" onclick="#')">删除</a>
+								<!-- #else -->
+				       			 <a href="javascript:void(0);" onclick="sysRoleDel('${sysrole.id}');">删除</a>
+								<!-- #end -->
+				       			 <a href="javascript:void(0);" onclick="editRolePermissionBtn('${sysrole.id}')">编辑权限</a>
+				       			 </td>
+							 </tr>
+							  <!-- #end -->
+						  <!--#else -->
+						      <tr><td colspan="6" align="center"><font color="red">查找不到角色记录</font></td></tr>
+						  <!--#end-->
+						</tbody>
+					</table>
+					<!-- /列表 -->
+					
+				<!-- 分页 -->
+				  <!--#if(pageNos)-->
+					<div class="dataTables_paginate paging_bootstrap fl">
+						<input type="hidden" id="totalPage"  value="${totalPage}"></input>
+						<ul class="pagination">
+							<li class="prev">
+								<!--#if(sysRolePage.hasPrePage)-->
+								     <a href="javascript:complaintFormPage(${sysRolePage.prePage});">上一页</a>
+								 <!--#else -->
+								 <!--  <a href="javascript:void(0);">上一页</a> -->
+								<!-- #end -->
+							</li>
+							<!--#for(Integer userInfoPageNo : pageNos)-->
+				       		  <li <!--#if(userInfoPageNo == sysRolePage.pageNo)-->class="active"<!--#end-->>
+				       		  <a href="javascript:complaintFormPage(${userInfoPageNo});">${userInfoPageNo}</a></li>
+				       		<!--#end-->
+				       		
+				       		<li class="next">
+					       		<!--#if(sysRolePage.hasNextPage)-->
+								   <a href="javascript:complaintFormPage(${sysRolePage.nextPage});">下一页</a>
+								 <!--#else -->
+								 <!--  <a href="javascript:void(0);">下一页</a> -->
+								<!-- #end -->
+							</li>
+						</ul>					
+					</div>
+					<div class="fl page-go">当前第 ${sysRolePage.pageNo} 页  总记录数为 ${sysRolePage.totalItems}条 <span class="ml20">
+				           跳转到第  <input id="goPage" value="${sysRolePage.pageNo}" class="integer"/> 页<a href="javascript:complaintFormGoPage();" class="btn btn-info btn-sm ml20">GO</a></div>
+				 <!--#end-->
+				<!-- /分页 -->
+                </section><!-- /.content -->
+            </aside><!-- /.right-side -->
+        </div><!-- ./wrapper -->
+        
+        
+        <!-- 后台用户信息模态框 -->
+		<div class="modal fade" id="sysRoleModal" tabindex="-1" role="dialog"
+		aria-labelledby="sysRoleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="sysRoleModalLabel">角色信息</h4>
+				</div>
+				<div class="modal-body">
+					<form id="sysRoleForm" action="${manageHost}/sysuser/sysRoleAdd.html"
+						method="post">
+						<div class="form-group">
+							<label for="role" class="control-label">* 角色:</label> <input
+								type="text" class="form-control" id="role" name="role"
+								required>
+						</div>
+						<div class="form-group">
+							<label for="description" class="control-label">角色描述:</label> <input
+								type="text" class="form-control" id=description name="description">
+						</div>
+						<div class="form-group">
+							<label for="locked" class="control-label">是否可用:</label> <select
+								class="form-control" id="available" name="available">
+								<option value="true">是</option>
+								<option value="false">否</option>
+							</select>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary"
+						onclick="sysRoleFormSubmit()">提交</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 后台角色权限模态框 -->
+	<div class="modal fade" id="sysRolePermissionModal" tabindex="-1" role="dialog"
+		aria-labelledby="sysRolePermissionModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="sysRolePermissionModalLabel">权限信息</h4>
+				</div>		
+				<div class="modal-body" style="height:400;overflow-y: auto;">
+					<form id="sysRolePermissionForm" action="#" method="post" >
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="resetPermissionICheck()">重置</button>
+					<button type="button" class="btn btn-primary" onclick="sysRolePermissionFormSubmit()">保存</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>	
+			</div>
+		</div>
+	</div>
+
+	<!-- 引用公共底部样式部分 -->
+      ${include("../public_footer.httl")}
+       <script type="text/javascript">
+       
+       function sysRoleFormSubmit(){
+    	   if(checkFormValue()){
+    		   $('#sysRoleForm').submit();
+    	   }    	 
+       }
+       $(function(){
+			//弹出框高度对页面高度的控制
+			dialog_show_hide("sysRolePermissionModal,sysRoleModal,sysRoleModal");
+		})
+       function sysRolePermissionFormSubmit(){
+      	 $('#sysRolePermissionForm').submit();
+       }
+       
+       function sysRoleDel(sysRoleId){
+    	   if (confirm("你确定删除吗？")) {
+      		 window.location.href = "${manageHost}/sysuser/sysRoleDelete?sysRoleId=" + sysRoleId;
+      	 }
+       }
+       
+       function sysRoleAdd(){
+    	   var form = $('#sysRoleForm');
+    	   form.attr("action","${manageHost}/sysuser/sysRoleAdd.html");
+    	   form.find("[name='role']").val("");
+           form.find("[name='description']").val("");
+           form.find("[name='available']").find("option[value='true']").attr("selected",true);
+           $('#sysRoleModal').modal({ keyboard: false,backdrop:false});
+       }
+       
+       function sysRoleUpdate(sysRoleId){
+    	 var role = $("#"+sysRoleId).find("[name='role']").text();
+      	 var description = $("#"+sysRoleId).find("[name='description']").text();
+      	 var available = $("#"+sysRoleId).find("[name='available']").text();
+      	 var form = $('#sysRoleForm');
+      	 form.attr("action","${manageHost}/sysuser/sysRoleUpdate?id="+sysRoleId);
+      	 form.find("[name='role']").val(role);
+      	 form.find("[name='description']").val(description);
+      	 form.find("[name='available']").find("option[value="+available+"]").attr("selected",true);
+      	 $('#sysRoleModal').modal({ keyboard: false,backdrop:false});
+       }
+       
+       function invalidHandler(e) {
+      	 checkValue(e.target);
+      	 e.stopPropagation();
+         e.preventDefault();
+      }
+       
+       var checkFormValue = function(){
+           var form = document.getElementById("sysRoleForm");;
+           for(var i=0;i< form.elements.length-1;i++){
+          	 var element = form.elements[i];
+          	 if(!checkValue(element)){
+          		return false; 
+          	 }
+           }
+           return true;
+       }
+       
+       var checkValue = function(element){
+      	 if(element.checkValidity()){
+      		 element.parentElement.className="form-group";
+      		 return true;
+      	 }else{
+      		 element.parentElement.className="form-group has-error";
+      		 alert(element.validationMessage);
+      		 return false;
+      	 }
+       }
+       
+       function loadinvalidHandler() {
+           var myform = document.getElementById("sysRoleForm");
+            for(var i=0;i< myform.elements.length-1;i++){
+                //表单元素的onchange事件，优化用户体验
+                myform.elements[i].addEventListener("change",invalidHandler,false);
+            }
+        }
+        //在页面初始化事件（onload）时注册的自定义事件
+        window.addEventListener("load", loadinvalidHandler, false);
+        
+        var currPermissionData;
+        function editRolePermissionBtn(sysRoleId){   	  
+       	  $.get("${manageHost}/sysuser/getMyPermission?sysRoleId=" + sysRoleId,function(data,status){
+       		  if(status == "success"){
+       			currPermissionData = data;
+       			  $('#sysRolePermissionForm').attr("action","${manageHost}/sysuser/editMyPermission?sysRoleId=" +sysRoleId );
+       			  initPermissionICheck(data);
+                  $('#sysRolePermissionModal').modal({ keyboard: false,backdrop:false});
+       		  }else{
+       			  alert("该用户获取角色信息失败");
+       		  }
+       	  }); 
+        }
+        function resetPermissionICheck(){
+        	initPermissionICheck(currPermissionData);
+        }
+        function initPermissionICheck(data){
+       	 $('#sysRolePermissionForm').html('');
+       	 $.each(data,function(key,value){ 
+   			  var permission = value.sysPermission.permission;
+   			 var description = value.sysPermission.description;
+   			  var permissionId = value.sysPermission.id;
+   			  var isbind = value.isbind;
+   			  $('#sysRolePermissionForm').append('<div class="form-group"><input type="checkbox" id="permission' +key+'" name="permission"  class="form-control" value="'+permissionId+'" checked="'+isbind+'"><label for="permission' +key+'">'+description+'_'+permission+'</label></div>');
+           }); 
+   		 $('input').iCheck({
+   			    checkboxClass: 'icheckbox_minimal',
+   			    radioClass: 'iradio_minimal',
+   			    increaseArea: '20%' // optional
+   		 });
+   		 $.each(data,function(key,value){ 
+   			  if(value.isbind)
+   			  	$('#permission'+key).iCheck('check');
+   			  else
+   				$('#permission'+key).iCheck('uncheck');
+          });
+        }
+		window.onload=function(){ 
+			window.parent.$("#waiting").hide();
+		}
+       </script>
+ </body>
+   

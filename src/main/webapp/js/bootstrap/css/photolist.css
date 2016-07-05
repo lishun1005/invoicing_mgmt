@@ -1,0 +1,112 @@
+@charset 'UTF-8';
+header {
+    margin-bottom: 30px;
+}
+header h1 {
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
+    color: #fff;
+    margin-bottom: 10px;
+}
+header a {
+    color: orange;
+}
+.modal {
+    color: #333;
+}
+
+
+.photo_photolist {
+}
+.photo_photolist ul {
+    width: 105%;
+}
+li {
+    list-style: none outside none;
+}
+a {
+    text-decoration: none;
+}
+.c_tx3 {
+    color: #9B9B9B;
+}
+.photo_photolist_wrap {
+    margin: -5px 0 0 -5px;
+    padding: -80px 5px 0;
+}
+.photo_photolist li {
+    border-style: solid;
+    border-width: 1px;
+    float: left;
+    height: 133px;
+    margin: 0 17px 40px 0;
+    position: relative;
+    width: 200px;
+    z-index: 2;
+}
+
+.bg, .bgr, .bg_hover:hover, .bg_deep_dom {
+    background-color: #FFFFFF;
+}
+
+.photo_photolist_desc_wrap {
+    left: 0;
+    position: absolute;
+    top: 136px;
+    width: 200px;
+}
+
+.photo_photolist_inner {
+    position: relative;
+}
+.photo_photolist_img {
+    height: 133px;
+    overflow: hidden;
+    width: 200px;
+}
+
+.photo_name {
+    height: 22px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 136px;
+    width: 200px;
+}
+
+.photo_photolist_commentcount {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.7);
+    border-radius: 5px 5px 5px 5px;
+    bottom: 4px;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    padding: 3px 5px 3px 21px;
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    width: auto;
+}
+.photo_photolist .photo_select {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    font-size: 1px;
+    height: 135px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 202px;
+}
+.photo_photolist .photo_select span {
+    background-image: url("http://ctc.qzonestyle.gtimg.cn/qzone_v6/sprite/photo_v3.png?max_age=19830211&d=20121227103605");
+    background-position: -232px -39px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    height: 33px;
+    margin-top: 51px;
+    width: 101px;
+}
+.bor3, .bgr3, .tbor3, .bbor3, .lbor3, .rbor3 {
+    border-color: #E0E0E0;
+}

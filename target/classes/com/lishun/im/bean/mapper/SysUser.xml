@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   
+    "-//mybatis.org//DTD Mapper 3.3//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.lishun.im.dao.SysUserDao">
+    <resultMap type="SysUser" id="ListSysUser">
+    </resultMap>
+   <insert id="createUser" parameterType="SysUser">
+        INSERT INTO `im_sys_user`(id,username,password,email,salt,locked,realname) 
+            VALUES (#{id}, #{username}, #{password}, #{email}, #{salt}, #{locked},#{realname});
+   </insert>
+   <select id="findByUserName" resultType="SysUser" parameterType="String">
+        select * from im_sys_user where username=#{username}
+   </select>
+   <select id="findRoles" resultType="java.util.HashMap" parameterType="String">
+        select role from im_sys_user u, im_sys_role r,im_sys_user_role ur 
+            where u.username=#{username} and u.id=ur.user_id and r.id=ur.role_id
+   </select>
+   
+   <select id="findPermissions" resultType="java.util.HashMap" parameterType="String">
+       select permission from im_sys_user u, im_sys_role r, im_sys_permissions p,im_sys_user_role ur, im_sys_role_permission rp 
+            where u.username=#{username} and u.id=ur.user_id and r.id=ur.role_id and r.id=rp.role_id and p.id=rp.permission_id
+   </select>
+   <select id="findRoleIds" resultType="java.util.HashMap" parameterType="String">
+      select r.* from im_sys_user u, im_sys_role r,im_sys_user_role ur
+            where u.username=#{username} and u.id=ur.user_id and r.id=ur.role_id
+   </select>
+   
+   <select id="querySysUserByPage"  resultMap="ListSysUser">
+      select *  from im_sys_user 
+      <where>
+	      <if test="keyword!=null and keyword!=''"> 
+	        <bind name="keyword" value="'%' + keyword + '%'" />
+	        and username like #{keyword}  or email like #{keyword}
+	      </if>
+      </where>
+      order by create_time desc limit #{pageNo},#{rows}
+   </select>
+   
+   <select id="querySysUserByPageCount"  resultType="Long" parameterType="String">
+     select count(*)  from im_sys_user 
+     <where>
+     	<if test="keyword!=null and keyword!=''"> 
+        <bind name="keyword" value="'%' + keyword + '%'" />
+        and username like #{keyword}  or email like #{keyword}
+      </if> 
+     </where>
+   </select>
+   <delete id="delete" parameterType="String">
+   	delete from im_sys_user where id=#{sysUserId}
+   </delete>
+   
+    <update id="updateById" parameterType="SysUser" >
+    update im_sys_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=BIT},
+      </if>
+       <if test="realname != null" >
+        locked = #{realname,jdbcType=VARCHAR},
+      </if>
+      
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper> 

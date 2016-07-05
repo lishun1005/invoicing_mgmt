@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   
+    "-//mybatis.org//DTD Mapper 3.3//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.lishun.im.dao.SysRoleDao">
+	<resultMap type="SysRole" id="ListSysRoler">
+    </resultMap>
+    
+   <insert id="save" parameterType="SysRole" >
+    insert into im_sys_role (id, role, description, 
+      available)
+    values (#{id,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{available,jdbcType=BIT})
+  </insert>
+   <select id="findPermissionIdsByRoleId" resultType="java.util.HashMap" parameterType="String">
+        select * from  im_sys_role_permission rp where rp.role_id = #{sysRoleId}
+   </select>
+   
+   <select id="querySysRoleListMap"  resultMap="ListSysRoler">
+      select *  from im_sys_role 
+      <where>
+	      <if test="keyword!=null and keyword!=''"> 
+	        <bind name="keyword" value="'%' + keyword + '%'" />
+	        and role like #{keyword}  or description like #{keyword}
+	      </if>
+      </where>
+      order by create_time desc limit #{pageNo},#{rows}
+   </select>
+   
+   <select id="querySysRoleListMapCount"  resultType="Long" parameterType="String">
+     select count(*)  from im_sys_role 
+     <where>
+     	<if test="keyword!=null and keyword!=''"> 
+        <bind name="keyword" value="'%' + keyword + '%'" />
+        and role like #{keyword}  or description like #{keyword}
+      </if> 
+     </where>
+   </select>
+    <delete id="delete" parameterType="String">
+   	delete from im_sys_role where id=#{sysRoleId}
+   </delete>
+</mapper> 

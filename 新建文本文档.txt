@@ -1,0 +1,8 @@
+SELECT ies.*,iw.`name` as iwName, iss.`name` as issName,iey.`name` as ieyName,ic.`name` as icName,icm.company as icmName from im_employee_sale ies
+LEFT JOIN im_warehouse iw on iw.id=ies.im_warehouse_id
+LEFT JOIN im_species iss on iss.id=ies.im_species_id
+LEFT JOIN im_employees iey on ies.im_employee_id=iey.id
+LEFT JOIN im_category ic on ic.id=iss.category_id
+LEFT JOIN im_company icm on icm.id=iey.company_id
+WHERE isk.specifications like #{keyword} or iss.name like #{keyword}
+             	or iwe.name like #{keyword} or icy.name like #{keyword} 

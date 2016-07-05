@@ -1,0 +1,45 @@
+<!--#set(String manageHost = request.getScheme()+"://"+request.serverName+":"+"a".valueOf(request.serverPort)+request.getContextPath())-->
+		<link href="${manageHost}/css/base.css" rel="stylesheet" type="text/css" />
+		<link href="${manageHost}/css/base/bootstrap-3.2.0.min.css" rel="stylesheet" type="text/css" /> 
+		<link href="${manageHost}/js/base/jqueryUI/jquery-ui.css" rel="stylesheet" type="text/css" /> 
+        <link href="${manageHost}/css/base/font-awesome-4.1.0.min.css" rel="stylesheet" type="text/css" />
+        <!-- Ionicons -->
+        <link href="${manageHost}/css/base/ionicons-1.5.2.min.css" rel="stylesheet" type="text/css" /> 
+       <!--  <link href="//code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet" type="text/css" />-->
+        <!-- Morris chart -->
+        <link href="${manageHost}/css/morris/morris.css" rel="stylesheet" type="text/css" />
+        <!-- jvectormap -->
+        <link href="${manageHost}/css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+        <!-- Date Picker -->
+        <link href="${manageHost}/css/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+        <!-- Daterange picker -->
+        <link href="${manageHost}/css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link href="${manageHost}/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style 和openlayers有冲突！-->
+        <link href="${manageHost}/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        <!-- datetimep style -->
+        <link href="${manageHost}/css/base/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <!-- main style -->
+         
+        <link href="${manageHost}/css/style.css" rel="stylesheet" type="text/css" />
+       
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.../js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+        
+  <script type="text/javascript" src="${manageHost}/js/manage/submitForm.js"></script>
+<!-- #if(msg) -->
+<input type="hidden" id="msg" value="${msg}"></input>
+<!-- #end -->
+<script type="text/javascript">
+	var msg = document.getElementById("msg");
+	if (msg != null) {
+		alert(msg.value);
+	}
+	 var webserviceIP="${manageHost}";//webservice的ip地址
+</script>

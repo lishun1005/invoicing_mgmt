@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- <classPathEntry
+        location="D:\Java\MavenResp\resps\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://127.0.0.1:3306/invoicing_mgmt?useUnicode=true&amp;characterEncoding=UTF-8"
+            userId="root" password="123" />
+        <javaModelGenerator targetPackage="com.lishun.im.bean"
+            targetProject="D:\Java\EclipseWorkSpace\haitao\invoicing_mgmt\src\main\java" />
+        <sqlMapGenerator targetPackage="com.lishun.im.bean.mapper"
+            targetProject="D:\Java\EclipseWorkSpace\haitao\invoicing_mgmt\src\main\java" />
+        <javaClientGenerator targetPackage="com.lishun.im.bean.temp"
+            targetProject="E:\Java\ole_Workspase\invoicing_mgmt\src\main\java" type="XMLMAPPER" />
+        <table schema="invoicing_mgmt" tableName="im_company" />
+        <table schema="invoicing_mgmt" tableName="im_employees" />
+    </context> -->
+    <classPathEntry
+        location="E:\apache-maven-3.2.5\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar" />
+    <context id="context1" targetRuntime="MyBatis3">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+            connectionURL="jdbc:mysql://127.0.0.1:3306/invoicing_mgmt?useUnicode=true&amp;characterEncoding=UTF-8"
+            userId="root" password="123" />
+        <javaModelGenerator targetPackage="com.lishun.im.bean.temp"
+            targetProject="E:\Java\ole_Workspase\invoicing_mgmt\invoicing_mgmt\src\main\java" />
+        <sqlMapGenerator targetPackage="com.lishun.im.bean.mapper"
+            targetProject="E:\Java\ole_Workspase\invoicing_mgmt\invoicing_mgmt\src\main\java" />
+        <javaClientGenerator targetPackage="com.lishun.im.bean.temp"
+            targetProject="E:\Java\ole_Workspase\invoicing_mgmt\invoicing_mgmt\src\main\java" type="XMLMAPPER" />
+        <table schema="invoicing_mgmt" tableName="im_employee_sale" />
+    </context>
+</generatorConfiguration>

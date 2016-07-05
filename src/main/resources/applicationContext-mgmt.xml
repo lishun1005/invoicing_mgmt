@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	">
+	<description>Spring公共配置 </description>
+	
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 (不扫描controller,防止事务失败) -->
+    <context:component-scan base-package="com.lishun.im">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+    <!-- End -->
+    
+    <!-- spring jdbctemplate -->
+    <bean id="jdbctemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"></constructor-arg>
+    </bean>
+    <!-- End -->
+    
+    <!-- 事务配置 (不能再spring-mvc配置)-->
+    <!-- <tx:annotation-driven transaction-manager="transactionManager" /> --><!-- 通过注解使用事务 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <aop:config>
+        <!-- 采用扫描全部service方式启用事务 -->
+        <aop:advisor advice-ref="txAdvice" pointcut="execution (* com.lishun.im.service..*.*(..))" />
+    </aop:config>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" propagation="REQUIRED" />
+            <tx:method name="find*" read-only="true" propagation="REQUIRED" />
+            <tx:method name="query*" read-only="true" propagation="REQUIRED" />
+            <tx:method name="show*" read-only="true" propagation="REQUIRED" />
+            <tx:method name="list*" read-only="true" propagation="REQUIRED" />
+            <tx:method name="*" propagation="REQUIRED" rollback-for="java.sql.SQLException" />
+        </tx:attributes>
+    </tx:advice>
+    <!-- End -->
+    
+	<!-- 属性文件值可以通过@Value注解进行注入 -->
+    <bean id="propertiesReader"
+            class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="locations">
+                <list>
+                    <value>classpath:application.${spring.profiles.active}.properties</value>
+                    <value>classpath:fixparam.properties</value>
+                </list>
+            </property>
+    </bean>
+    <util:properties id="applicationProperty" location="classpath:application.${spring.profiles.active}.properties" />
+    <util:properties id="fixparam" location="classpath:fixparam.properties" />
+	<!--End -->
+</beans>

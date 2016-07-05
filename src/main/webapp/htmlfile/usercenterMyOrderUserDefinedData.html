@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>自定义组合数据-个人中心-我的订单</title>
+	<script>
+	var rscloudmartHost = "http://localhost:8081/gt-cloud";
+	</script>
+	<link href="../css/AdminLTE.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="../js/base/jqueryUI/jquery-ui.css" type="text/css"></link>
+	<link rel="stylesheet" href="../js/bootstrap/css/bootstrap.css" type="text/css"></link>
+	<link rel="stylesheet" href="../css/style2.css" type="text/css"></link>
+	<script type="text/javascript" src="../js/base/jquery-1.11.1.min.js"></script>
+<style>
+.map-postion{cursor:pointer;width:25px;float:left;height:25px;background:url(../img/usercenter-css-img.png) -305px -253px no-repeat;}
+#map{width:100%;height: 100%;position:relative;}
+.map2,.map,#map2,#map{cursor:move;}
+#map.draw{cursor:default;}
+img {max-width: inherit !important;}
+</style>
+</head>
+<body>
+<!-- 顶部部分 -->
+	<div class="index2-header">
+    <div class="wrap index2_header_content">
+        	<a href="/gt-cloud/" class="fl"><img src="../images/images2/index2/RS_logo_beta.png" class="logo"/></a>
+			<div id="userlogin_no">
+				<ul class="index2_header_ul">
+					<li><a class="index2_header_li_a_nologin">购物车<span class="index2_top_shopcart_num"></span></a></li>
+					<li class="index2_header_ul_li2"><a class="index2_header_li_a_nologin">云工作台<span class="index2_top_operplatform_num"></span></a></li>
+					<li><a class="index2_header_li_a_nologin">个人中心</a></li>
+				</ul>
+				<span class="no_login">您好！欢迎来到遥感集市<a class="a_oper index-login-link">请登录</a>|<a href="http://localhost:8081/userCenter/register.htm" class="a_oper">注册</a></span>
+			</div>
+    </div>       	
+	</div>
+<!-- 导航部分 -->
+	<div class="nav">
+		<div class="wrap">
+       <ul class="nav-ul">
+       	   <li><a href="/gt-cloud/index.htm" class="index-name">首页</a></li>
+              <li><a href="/gt-cloud/index_dataProduct.htm" class="index-name">数据中心</a></li>
+              <li><a href="/gt-cloud/index_infoProduct.htm" class="index-name">信息产品</a></li>
+              <li><a href="/gt-cloud/cloudplatform/index.htm" class="index-name">云工作台</a></li>
+              <li><a href="/gt-cloud/restful_CloudApplicationsIndex.htm" class="index-name">应用汇集</a></li>
+              <li><a href="/gt-cloud/restful_CloudServiceIndex.htm" class="index-name">定制服务</a></li>
+              <li><a href="javascript:void(window.open('http://bbs.rscloudmart-test.com'))" class="index-name">遥感社区</a></li>
+       </ul>
+		</div>
+	</div>
+<!-- 页面内容开始 -->        
+	<div class="wrap ">
+	<div class="main-content ovcl">
+		<div class="usercenter-left">
+			<div class="uc-l-userpic">
+				<div class="user-pic-container"><a class="hover-80"><img src="../images/images2/datacenter2/user-pic.jpg"/></a></div>
+				<p class="oneline mt10"><span class="font-red">下午好！</span><a class="a_oper font-bold">麦吉吉8888</a></p>
+				<p class="uc-member-levels"><i></i>普通会员</p>
+			</div>
+			<div class="uc-l-userstatus">
+			
+			</div>
+			<p class="font16 fast-channel">快速通道</p>
+			<ul class="uc-l-channel-list">
+				<li><i></i><a class="uc-channel-cart" href="usercenterOrder.html"><i></i>我的购物车</a></li>
+				<li class="active"><i></i><a class="uc-channel-order" href="usercenterMyOrder.html"><i></i>我的订单</a></li>
+				<li><i></i><a class="uc-channel-workbench" href="usercenterWorkBench.html"><i></i>我的云工作台</a></li>
+				<li><i></i><a class="uc-channel-yunfile" href="usercenterYunFile.html"><i></i>我的云盘</a></li>
+				<li><i></i><a class="uc-channel-browserhistory" href="usercenterBrowserHistory.html"><i></i>浏览历史</a></li>
+				<li><i></i><a class="uc-channel-wallet" href="usercenterWallet.html"><i></i>我的钱包</a></li>
+				<li><i></i><a class="uc-channel-customerservice" href="usercenterCustomService.html"><i></i>客户服务</a></li>
+			</ul>
+		</div>		
+		<div class="usercenter-right">
+			<div class="uc-myorder-detail-step rel mb20">
+				<p class="step-bar-middle"></p>
+				<div class="uc-step-icon-container">
+					<i class="uc-step-icon active-status"></i>
+					<i class="uc-step-icon active-status uc-step4"></i>
+					<i class="uc-step-icon active-num uc-step4"><span>3</span></i>
+					<i class="uc-step-icon uc-step4"><span>4</span></i>
+				</div>
+				<ul class="uc-step-ul ovcl">
+					<li><p class="uc-step-description active">提交订单</p><p class="uc-step-date">2014-11-14 17:56</p></li>
+					<li class="uc-step4"><p class="uc-step-description active">支付</p><p class="uc-step-date">2014-11-15 17:56</p></li>
+					<li class="uc-step4"><p class="uc-step-description">等待支付</p></li>
+					<li class="uc-step4"><p class="uc-step-description">完成</p></li>
+				</ul>
+			</div>
+			<table class="table border-grey font-st uc-myorder-table table-va-top">
+				<tbody>
+					<tr class="bg-lightblue"><td colspan="3">订单信息</td></tr>
+					<tr class="font12 border-none"><td width="33%">订单号：201411160010</td><td width="33%">状态：待交付</td><td width="34%"></td></tr>
+					<tr class="font12 border-none"><td>订单总额：¥500.00</td><td>支付方式：线上支付</td><td>交付方式：个人云盘</td></tr>
+				</tbody>
+			</table>
+			<table class="table table-center border-grey uc-myorder-table table-va-top font-st">
+				<tbody>
+					<tr class="bg-lightblue font-left font14"><td colspan="8">商品详情</td></tr>
+					<tr>
+						<td colspan="2">商品名称</td>
+						<td width="25%">商品明细</td>
+						<td width="11%">单价（元）</td>
+						<td width="11%">数量</td>
+						<td width="11%">优惠（元）</td>
+						<td width="11%">金额（元）</td>
+						<td width="11%">状态</td>
+					</tr>
+					<tr class="font12">
+						<td width="12%"><img src="../images/images2/datacenter2/common-cart_07.png"/></td>
+						<td width="8%" class="font-left">自定义组合影像数据</td>
+						<td>
+							<p>数据类型与卫星：航天平台（资源三号，GF）</p>
+							<p>分辨率：2米</p>
+							<p>光谱信息：多光谱</p>
+							<p>云量：10%以下</p>
+							<p>时间：2012-11-15到2013-11-14</p>
+							<p>范围：109.12E 23.22N~110.12E 23.33N</p>
+							<p>面积：123466km2</p>
+							<p><span class="fl">位置图：</span><i class="map-postion" dialog-target-name="map-position"></i></p>
+						</td>
+						<td><b>500.00</b></td>
+						<td>1</td>
+						<td>—</td>
+						<td>500.00</td>
+						<td><b>待交付</b></td>
+					</tr>
+					<tr>
+						<td colspan="8">
+							<p class="fl">备注：无</p>
+							<p style="text-align: right;">1件商品，商品总额：<span class="font-red font16">¥500.00</span></p>
+							<p style="text-align: right;">实付款：<span class="font-red font16">¥500.00</span></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>		
+	</div>
+	</div>
+	<div class="dialog-window" dialog-name="map-position">
+		<div id="map" style="height:500px;width:800px;"></div>
+	</div>	
+<!-- 页面底部 -->
+	<div class="footer-box">
+		<div class="index2_footer_blue">
+			<div class="wrap">
+				<div class="l footertop">
+					<img src="../images/images2/index2/logo_xiao.png" class="l"/>
+					<ul class="index2_foot_ul">
+						<li><a href="/gt-cloud/">首页</a></li>
+						<li><a href="/gt-cloud/index_dataProduct.htm">数据中心</a></li>
+						<li><a href="/gt-cloud/index_infoProduct.htm">信息产品</a></li>
+						<li><a href="/gt-cloud/cloudplatform/index.htm">云工作台</a></li>
+						<li><a href="/gt-cloud/restful_CloudApplicationsIndex.htm">应用汇集</a></li>
+						<li><a href="/gt-cloud/restful_CloudServiceIndex.htm">定制服务</a></li>
+						<li><a href="javascript:void(window.open('http://bbs.rscloudmart-test.com'))">遥感社区</a></li>
+						<!--<li><a href="/gt-cloud/restful_aboutUs.gaikuang.htm">关于我们</a></li>
+					--></ul>
+				</div>
+			</div>
+		</div>
+			 
+		<div class="foot_copyright">
+			<div class="wrap cl oh">
+				<div class="l">
+					<a href="http://210.77.87.226/index.htm">遥感集市</a>&nbsp;&copy;&nbsp;2007-2014&nbsp;<span><a href="http://www.chinarsgeo.com" target="_blank">天津中科遥感信息技术有限公司</a>&nbsp;&nbsp;<a href="http://www.cresda.com/n16/index.html" target="_blank">中国资源卫星应用中心</a>&nbsp;</span>联合发布<br/>
+					建议使用IE10或以上、谷歌、火狐浏览器  <br/>
+					<a href="/gt-cloud/restful_aboutUs.gaikuang.htm" target="_blank">关于我们</a><span class="foot_end_gap">|</span><a href="http://search.51job.com/list/co,c,3362444,030800,50,1.html" target="_blank">诚聘英才</a><span class="foot_end_gap">|</span><a href="http://www.chinarsgeo.com/index.php/Index/honor/category_id/5/fftd/2" target="_blank">相关资质</a>
+				</div>
+				<p class="r or-code">
+					<img src="../images/images2/index2/or-code.jpg"/><br/>
+					微信服务号
+				</p>
+				<div class="r">
+					Copyright&nbsp;@&nbsp;广东中科遥感技术有限公司 <br/>
+					备案号：&nbsp;<a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备12003192号-2</a> <br/>
+					客户服务热线：&nbsp;400-674-7498
+				</div>
+			</div>
+	  </div>	 
+	</div>
+	<script type="text/javascript" src="../js/base/jqueryUI/jquery-ui.js"></script>
+	<script type="text/javascript" src="../js/base/base.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/openlayers/OpenLayers.js"></script>
+	<script type="text/javascript">
+		var flag=0;
+		$(".dialog-window").dialog({
+			open:function(e,ui){
+				if(flag==0){
+					$(".ui-dialog-titlebar").remove();
+					$(".dialog-window").css({"padding":0});
+					$(".dialog-window").append("<button type='button' class='ui-dialog-titlebar-close dialog-close1' style='top: 15px;'></button>");
+					flag=1;
+				}
+			},
+			resizable:false,
+			autoOpen:false,
+			modal:true,
+			width:"800px"
+		});
+	
+		$("*[dialog-target-name]").on("click",function(){
+			$("*[dialog-name="+$(this).attr("dialog-target-name")+"]").dialog("open");
+		});
+		
+		$(document).on("click",".dialog-close1",function(){
+			$(this).parents(".dialog-window").dialog("close");
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//设置地图底图
+			setBaseLayers();
+		});
+		var map;
+		var layerServerURL = "http://210.77.87.225:8080/geowebcache/service/wms";
+		function getBaseLayer() {
+			var baseLayer = new OpenLayers.Layer.WMS(
+			// "电子地图", "http://58.252.5.46:8080/geowebcache/service/wms", {
+			// "电子地图", "http://10.0.68.183:8080/geowebcache/service/wms", {
+			"电子地图", layerServerURL, {
+				layers : "mv-ne_sw-jpeg_90_2013_world_china-0gtscreen",
+				format : "image/jpeg",
+				styles : '',
+				transparent : true
+			}, {
+				resolutions : [ 0.703125, 0.3515625, 0.17578125, 0.087890625,
+						0.0439453125, 0.02197265625, 0.010986328125, 0.0054931640625,
+						0.00274658203125, 0.001373291015625, 6.866455078125E-4,
+						3.4332275390625E-4, 1.71661376953125E-4, 8.58306884765625E-5 ], // ,
+				// 4.291534423828125E-5,
+				// 2.1457672119140625E-5,
+				// 1.0728836059570312E-5,
+				// 5.364418029785156E-6],
+				tileSize : new OpenLayers.Size(256, 256),
+				tileOrigin : new OpenLayers.LonLat(-180, 90),
+				isBaseLayer : true,
+				// wrapDateLine:true,
+				maxExtent : new OpenLayers.Bounds(-180.0, -90.0, 180.0, 90.0)
+			});
+			return baseLayer;
+		}
+		//设置地图底图
+		function setBaseLayers(){
+			/* 设置中央地图区域的地图 */
+		    mapOptions = { 
+		   		 displayProjection : new OpenLayers.Projection("EPSG:4326"),
+		   		 units: "degrees",
+		   		// numZoomLevels:15,
+		   		 // allOverlays: true,
+		   		 controls: [],
+		   		 projection: new OpenLayers.Projection("EPSG:4326"),
+			     maxExtent: new OpenLayers.Bounds(-180.0,-90.0,180.0,90.0)
+		   		 };
+		    
+		    map = new OpenLayers.Map('map', mapOptions);
+		    var baseLayer= getBaseLayer();
+		    baseLayer.params.format = "image/jpeg";
+			map.addLayer(baseLayer); 
+			map.addControl(new OpenLayers.Control.Navigation());
+			//放大缩小控件
+		//	map.addControl(new OpenLayers.Control.PanZoomBar({position: new OpenLayers.Pixel(2, 15)}));
+			//鼠标当前坐标
+			map.addControl(new OpenLayers.Control.MousePosition());
+			// 定位到全国
+			map.moveTo(new OpenLayers.LonLat(105.410562,31.209316),3);
+		}		
+	</script>
+</body>
+</html>

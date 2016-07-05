@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>遥感集市后台管理-发票</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+     	<link href="../css/base/bootstrap-3.2.0.min.css" rel="stylesheet" type="text/css" /> 
+		<link href="../js/base/jqueryUI/jquery-ui.css" rel="stylesheet" type="text/css" /> 
+     	
+        <link href="../css/base/font-awesome-4.1.0.min.css" rel="stylesheet" type="text/css" />
+        <!-- Ionicons -->
+        <!-- <link href="../css/base/ionicons-1.5.2.min.css" rel="stylesheet" type="text/css" /> -->
+        <link href="//code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <!-- Morris chart -->
+        <link href="../css/morris/morris.css" rel="stylesheet" type="text/css" />
+        <!-- jvectormap -->
+        <link href="../css/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+        <!-- Date Picker -->
+        <link href="../css/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+        <!-- Daterange picker -->
+        <link href="../css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link href="../css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="../css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        <!-- datetimep style -->
+        <link href="../css/base/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <!-- main style -->
+        <link href="../css/style.css" rel="stylesheet" type="text/css" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.../js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="skin-blue">
+        <!-- header logo: style can be found in header.less -->
+        <header class="header">
+            <a href="index.html" class="logo">遥感集市后台管理</a>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">左导航栏开关</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <li class="dropdown messages-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-envelope"></i>
+                                <span class="label label-success">4</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">您有4条信息</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- start message -->
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="../img/avatar3.png" class="img-circle" alt="User Image"/>
+                                                </div>
+                                                <h4>
+                                                    Support Team
+                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li><!-- end message -->
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="../img/avatar2.png" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    AdminLTE Design Team
+                                                    <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="../img/avatar.png" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Developers
+                                                    <small><i class="fa fa-clock-o"></i> Today</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="../img/avatar2.png" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Sales Department
+                                                    <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="pull-left">
+                                                    <img src="../img/avatar.png" class="img-circle" alt="user image"/>
+                                                </div>
+                                                <h4>
+                                                    Reviewers
+                                                    <small><i class="fa fa-clock-o"></i> 2 days</small>
+                                                </h4>
+                                                <p>Why not buy a new awesome theme?</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li>
+                        <!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-warning"></i>
+                                <span class="label label-warning">10</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 10 notifications</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="ion ion-ios7-people info"></i> 5 new members joined today
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning danger"></i> Very long description here that may not fit into the page and may cause design problems
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-users warning"></i> 5 new members joined
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="ion ion-ios7-cart success"></i> 25 sales made
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="ion ion-ios7-person danger"></i> You changed your username
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+                        <!-- Tasks: style can be found in dropdown.less -->
+                        <li class="dropdown tasks-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-tasks"></i>
+                                <span class="label label-danger">9</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 9 tasks</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li><!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Design some buttons
+                                                    <small class="pull-right">20%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">20% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li><!-- end task item -->
+                                        <li><!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Create a nice theme
+                                                    <small class="pull-right">40%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">40% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li><!-- end task item -->
+                                        <li><!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Some task I need to do
+                                                    <small class="pull-right">60%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">60% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li><!-- end task item -->
+                                        <li><!-- Task item -->
+                                            <a href="#">
+                                                <h3>
+                                                    Make beautiful transitions
+                                                    <small class="pull-right">80%</small>
+                                                </h3>
+                                                <div class="progress xs">
+                                                    <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <span class="sr-only">80% Complete</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li><!-- end task item -->
+                                    </ul>
+                                </li>
+                                <li class="footer">
+                                    <a href="#">View all tasks</a>
+                                </li>
+                            </ul>
+                        </li>
+                <!-- 用户账户: style can be found in dropdown.less -->
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-user"></i>
+                                <span>Admin <i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header bg-light-blue">
+                                    <img src="../img/RS-LOGO.png" class="img-circle" alt="User Image" />
+                                    <p>
+                                        Admin - 管理员
+                                        <small>Member since 2014</small>
+                                    </p>
+                                </li>
+                                <!-- Menu Body -->
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a href="#" class="btn btn-default btn-flat">用户信息</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a href="#" class="btn btn-default btn-flat">退出</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>        
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="left-side sidebar-offcanvas">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="../img/RS-LOGO.png" class="img-circle" alt="User Image" />
+                        </div>
+                        <div class="pull-left info" style="margin-top:10px;">
+                            <p>你好，Admin</p>
+                        </div>
+                    </div>
+                    <!-- /.search form -->
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+                        <li class="active">
+                            <a href="index.html">
+                                <i class="fa fa-dashboard"></i> <span>首页</span>
+                            </a>
+                        </li>
+                        <li class="treeview active">
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o"></i>
+                                <span>用户权限管理</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="active"><a href="pages/charts/morris.html"><i class="fa fa-angle-double-right"></i> 普通用户管理</a></li>
+                                <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i> 管理员用户管理</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> 角色权限管理</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> 用户认证管理</a></li>
+                                <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> 用户列表管理</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span>资源管理</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/UI/general.html"><i class="fa fa-angle-double-right"></i> 数据展品管理</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-edit"></i> <span>计费管理</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/forms/general.html"><i class="fa fa-angle-double-right"></i> 产品定价</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-table"></i> <span>订单管理</span>
+                                <small class="badge bg-aqua">3</small>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/tables/simple.html"><i class="fa fa-angle-double-right"></i> 订单</a></li>
+                                <li><a href="pages/tables/data.html"><i class="fa fa-angle-double-right"></i> 申请单</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-calendar"></i> <span>初始化数据</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/tables/simple.html"><i class="fa fa-angle-double-right"></i> 模型数据导入</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-folder"></i> <span>下载审核</span>
+                                <small class="badge bg-red">5</small>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="pages/examples/invoice.html"><i class="fa fa-angle-double-right"></i> 用户下载申请管理</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Right side column. Contains the navbar and content of the page -->
+            <aside class="right-side">
+                <!-- Content Header (Page header) -->
+                <section class="content-header ovcl">
+	                    <ol class="breadcrumb">
+	                        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+	                        <li><a href="#">板块大标题</a></li>
+	                        <li class="active">板块小标题</li>
+	                    </ol>
+                </section>
+                
+<!-- 主体内容开始 -->
+                <!-- Main content -->
+                <section class="content">
+                <!-- 基本信息 -->
+					<div class="content-table-title">
+						<i class="fa fa-pencil"></i> 基本信息
+					</div>
+					<div class="form-detail mb20">
+						<div class="form-group">
+							<label class="control-label">订单号：</label>
+							<span>123456789123456</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">下单时间：</label>
+							<span>2014-12-16 15:15:15</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">用户：</label>
+							<span>成晓晓</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">状态：</label>
+							<span>未开票</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">操作：</label>
+							<span><a class="btn btn-info btn-sm">确认开票</a></span>
+						</div>
+					</div>
+					<!-- /基本信息 -->
+					
+				<!-- 开票信息 -->
+					<div class="content-table-title">
+						<i class="fa fa-pencil"></i> 开票信息
+					</div>
+					<div class="form-detail mb20">
+						<div class="form-group">
+							<label class="control-label">发票类型：</label>
+							<span>增值税专用发票</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">产品类别：</label>
+							<span>数据</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label"> 公司名称：</label>
+							<span>东莞市XXXX信息技术有限公司</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">公司电话：</label>
+							<span>0769-88888888</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">公司地址：</label>
+							<span>广东省东莞市松山湖XXXX路XXX号</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">开户银行：</label>
+							<span>东莞银行松山湖支行</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">公司税号：</label>
+							<span>XXXXXXXXXXXXXXXXXXXXX</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">银行账号：</label>
+							<span>XXXXXXXXXXXXXXXXXXXXX</span>
+						</div>
+						<div class="form-group ovcl ml30">
+							<div class="img-thumb-container">
+								<label class="control-label">企业营业执照：</label>
+								<div class="img-thumb"><img src="../img/zhizhao.png"></img></div>
+							</div>
+							<div class="img-thumb-container">
+								<label class="control-label">一般纳税人证明：</label>
+								<div class="img-thumb"><img src="../img/zhizhao.png"></img></div>
+							</div>
+							<div class="img-thumb-container">
+								<label class="control-label">开户许可证：</label>
+								<div class="img-thumb"><img src="../img/zhizhao.png"></img></div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">明细：</label>
+						</div> 
+						<table class="table table-bordered table-hover invoice-table">
+							<thead>
+								<tr>
+									<th width="15%">产品名称</th>
+									<th width="15%">单位</th>
+									<th width="15%">数量</th>
+									<th width="15%">单价（含税）单价：元</th>
+									<th width="15%">金额（含税）单价：元</th>
+									<th width="25%">备注</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>数据费</td>
+									<td>套</td>
+									<td>1</td>
+									<td>124.00</td>
+									<td>124.00</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan='6' class="font-bold">合计：124.00元</td>
+								</tr>
+							</tbody>
+						</table>						
+						
+					</div>
+					<!-- /开票信息 -->
+
+                <!-- 邮寄人信息 -->
+					<div class="content-table-title">
+						<i class="fa fa-pencil"></i> 邮寄人信息
+					</div>
+					<div class="form-detail mb20">
+						<div class="form-group">
+							<label class="control-label">收票人姓名：</label>
+							<span>成晓晓</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">收票人手机：</label>
+							<span>13800138000</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">收票地址：</label>
+							<span>xxx</span>
+						</div>
+						<div class="form-group">
+							<label class="control-label">邮政编码：</label>
+							<span>xxx</span>
+						</div>
+					</div>
+					<!-- /邮寄人信息 -->					
+					
+                </section><!-- /.content -->
+            </aside><!-- /.right-side -->
+        </div><!-- ./wrapper -->
+
+        <script src="../js/base/jquery-2.1.1.js"></script>
+        <script src="../js/base/jqueryUI/jquery-ui.js" type="text/javascript"></script>
+        <script src="../js/base/bootstrap-3.2.0.js" type="text/javascript"></script>
+        <script src="../js/base/bootstrap-datetimepicker.js" type="text/javascript"></script>
+        <script src="../js/base/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
+        <script src="../js/base/jqueryValidate/jquery.validate.js" type="text/javascript"></script>
+        <script src="../js/base/base.js" type="text/javascript"></script>
+        <!-- AdminLTE App -->
+        <script src="../js/AdminLTE/app.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        
+        /*=====日历插件=====*/
+	        $('.form_datetime').datetimepicker({
+	            language : 'zh-CN',
+	            weekStart: 1,
+	            todayBtn:  1,
+	    		autoclose: 1,
+	    		todayHighlight: 1,
+	    		startView: 2,
+	    		forceParse: 0,
+	            showMeridian: 1
+	        });
+        
+	    /*=====上传文件====*/   
+	        $(".option-select li a").on("click",function(){
+	        	var Stext=$(this).text();
+	        	$(this).parents(".option-select").find(".option-text").text(Stext);
+	        });
+	    
+	    /*=====自定义对话框=====*/
+		 	$("*[data-dialog-name='dialog-add']").dialog({
+				//autoOpen:"open"
+			}); 
+		 	
+		/*=====删除表格所选的行，删除对话框确定触发=====*/ 	
+	 		var selectID=new Array();
+		 	$(".dialog-define-name-delete").on("click",function(){
+		 	 	selectID=[];
+		 		showSelected();
+		 		alert("当前选中列的ID="+selectID);
+		 	});
+		 	
+		 	function showSelected(){
+			 	$(".define-name-table input[type='checkbox']:checked").each(function(){
+			 		selectID.push($(this).attr("id"));
+			 	});
+		 		
+		 	};
+        </script>
+    </body>
+</html>

@@ -1,0 +1,123 @@
+<!--#set(String manageHost = request.getScheme()+"://"+request.serverName+":"+"a".valueOf(request.serverPort)+request.getContextPath())-->
+<!--#set(String iframeUrl = request.getParameter("iframeUrl"))-->
+
+
+ <aside  id="asides" class="left-side sidebar-offcanvas" >
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <div class="user-panel">
+                        <div class="pull-left info" style="margin-top:10px;">
+                            <p>你好，${principal()}</p>
+                        </div>
+                    </div>
+                    <!-- /.search form -->
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <ul class="sidebar-menu">
+                        <li class="active">
+                            <a href="${manageHost}/sysIndex.httl" target="main_view">
+                                <i class="fa fa-dashboard"></i> <span class="head">首页</span>
+                            </a>
+                        </li>
+                        <li  id="dd"  class="treeview" style="display:none;">
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o"></i>
+                                <span  class="head">系统管理</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            
+                            <ul class="treeview-menu">
+                            <!-- #if(hasPermission("systemManager:sysuserManager:*") || hasPermission("systemManager:sysuserManager:list")) -->
+                                <li><a href="${manageHost}/sysuser/sysUserList.htm?leftIndex=1" target="main_view"><i class="fa fa-angle-double-right"></i>后台用户管理</a></li>
+                                <li><a href="${manageHost}/sysuser/sysRoleList.htm?leftIndex=1" target="main_view"><i class="fa fa-angle-double-right"></i>后台角色管理</a></li>
+                                <li><a href="${manageHost}/sysuser/sysPermissionList.htm?leftIndex=1" target="main_view"><i class="fa fa-angle-double-right"></i>后台权限管理</a></li>
+                            <!-- #end -->    
+                            </ul>
+                        </li>
+                        <li  class="treeview" style="display:none;">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span  class="head">数据管理</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                            <!-- #if(hasPermission("dataManager:imWarehouseManager:*") || hasPermission("dataManager:imWarehouseManager:list")) -->
+                                <li><a href="${manageHost}/imWarehouse/list?leftIndex=2" target="main_view"><i class="fa fa-angle-double-right"></i>仓库管理</a></li>
+                            <!-- #end -->                             
+                            <!-- #if(hasPermission("dataManager:categoryManager:*") || hasPermission("dataManager:categoryManager:list")) -->
+                                <li><a href="${manageHost}/category/list?leftIndex=2" target="main_view"><i class="fa fa-angle-double-right"></i>类别管理</a></li>
+                            <!-- #end -->
+                            <!-- #if(hasPermission("dataManager:speciesManager:*") || hasPermission("dataManager:speciesManager:list")) -->
+                                <li><a href="${manageHost}/species/list?leftIndex=2" target="main_view"><i class="fa fa-angle-double-right"></i>品种管理</a></li>
+                            <!-- #end -->   
+                            <!-- #if(hasPermission("dataManager:companyManager:*") || hasPermission("dataManager:companyManager:list")) -->
+                                <li><a href="${manageHost}/imCompany/list?leftIndex=2" target="main_view"><i class="fa fa-angle-double-right"></i>公司管理</a></li>
+                            <!-- #end -->
+                            <!-- #if(hasPermission("dataManager:employeeManager:*") || hasPermission("dataManager:employeeManager:list")) -->
+                                <li><a href="${manageHost}/imEmployees/list?leftIndex=2" target="main_view"><i class="fa fa-angle-double-right"></i>员工管理</a></li>
+                            <!-- #end -->     
+                            </ul>
+                        </li>
+                         <li  class="treeview" style="display:none;">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span  class="head">商品管理</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">                          
+                            <!-- #if(hasPermission("productManager:imStockManager:*") || hasPermission("productManager:imStockManager:list")) -->
+                                <li><a href="${manageHost}/imStock/list?leftIndex=3" target="main_view"><i class="fa fa-angle-double-right"></i>进货管理</a></li>
+                            <!-- #end -->
+                            <!-- #if(hasPermission("productManager:shipmentManager:*") || hasPermission("productManager:shipmentManager:list")) -->
+                                <li><a href="${manageHost}/shipment/list?leftIndex=3" target="main_view"><i class="fa fa-angle-double-right"></i>出货管理</a></li>
+                            <!-- #end -->
+                            <!-- #if(hasPermission("productManager:imStockLogManager:*") || hasPermission("productManager:imStockLogManager:list")) -->
+                                <li><a href="${manageHost}/imStockLog/list?leftIndex=3" target="main_view"><i class="fa fa-angle-double-right"></i>出货/进货日志</a></li>
+                            <!-- #end -->     
+                            </ul>
+                        </li>
+                        <li  class="treeview" style="display:none;">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i>
+                                <span  class="head">销售管理</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">                          
+                            <!-- #if(hasPermission("saleManager:imEmployeeSaleManager:*") || hasPermission("saleManager:imEmployeeSaleManager:list")) -->
+                                <li><a href="${manageHost}/imEmployeeSale/list?leftIndex=4" target="main_view"><i class="fa fa-angle-double-right"></i>销售列表</a></li>
+                            <!-- #end -->
+                            </ul>
+                        </li>
+                        
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <script src="${manageHost}/js/base/jquery-2.1.1.js"></script>
+<script type="text/javascript">
+/*
+ * 遍历左侧树 有子节点则显示，没有则不显示
+ *验证用户权限
+ */
+ var num = $(".treeview-menu:has(li)").length;
+for(var i=0;i<num;i++){
+	var $this = $(".treeview-menu:has(li)").eq(i);
+	$this.parent().show();
+}  
+
+/*
+ * 点击li标签，显示遮罩层
+ */
+$(".treeview-menu >li").click(function(){
+	$("#waiting").show();
+	//window.location.href = "${manageHost}/index?iframeUrl="+$(this).children('a').attr('href');
+});
+/* $("#couponId").click(function(){
+	$("#waiting").show();
+}); */
+/* $(".sidebar-menu > li").each(function(){
+	 if($(this).children("ul").has("li")){
+		 $(this).show();
+	   }
+   });  */
+</script>

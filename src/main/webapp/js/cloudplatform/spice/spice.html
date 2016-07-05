@@ -1,0 +1,162 @@
+<!--
+   Copyright (C) 2012 by Jeremy P. White <jwhite@codeweavers.com>
+
+   This file is part of spice-html5.
+
+   spice-html5 is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Lesser General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   spice-html5 is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Lesser General Public License for more details.
+
+   You should have received a copy of the GNU Lesser General Public License
+   along with spice-html5.  If not, see <http://www.gnu.org/licenses/>.
+
+   --------------------------------------------------
+    Spice Javascript client template.
+    Refer to main.js for more detailed information
+   --------------------------------------------------
+
+-->
+
+<!doctype html>
+<html>
+    <head>
+
+        <title>遥感集市——F11全屏体验更好</title>
+        <script src="../../../js/base/jquery-1.8.0.min.js"></script>
+        <script src="spicearraybuffer.min.js"></script> 
+        <script src="enums.js"></script> 
+        <script src="atKeynames.js"></script> 
+        <script src="utils.min.js"></script> 
+        <script src="png.min.js"></script> 
+        <script src="lz.min.js"></script> 
+        <script src="quic.min.js"></script> 
+        <script src="bitmap.min.js"></script> 
+        <script src="spicedataview.min.js"></script> 
+        <script src="spicetype.min.js"></script> 
+        <script src="spicemsg.min.js"></script> 
+        <script src="wire.min.js"></script> 
+        <script src="spiceconn.min.js"></script> 
+        <script src="display.min.js"></script> 
+        <script src="main.min.js"></script> 
+        <script src="inputs.min.js"></script> 
+        <script src="simulatecursor.min.js"></script>
+        <script src="cursor.min.js"></script> 
+        <script src="thirdparty/jsbn.js"></script>
+        <script src="thirdparty/rsa.js"></script>
+        <script src="thirdparty/prng4.js"></script>
+        <script src="thirdparty/rng.js"></script>
+        <script src="thirdparty/sha1.js"></script>
+        <script src="ticket.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="spice.css" />
+
+        <script>	
+            var host = null, port = null;
+            var sc;
+            
+            window.onload = function() {
+            	document.getElementById("host").value = GetQueryString("ip");
+            	document.getElementById("port").value = GetQueryString("port");
+            	$("#connectButton").click();
+            }
+            
+            function GetQueryString(name){
+            	var reg = new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+            	var r = window.location.search.substr(1).match(reg);
+            	if(r!=null){
+                	return unescape(r[2]);
+                }
+                return null;
+        	}
+
+            function spice_error(e)
+            {
+                disconnect();
+            }
+
+            function connect()
+            {
+                var host, port, password, scheme = "ws://", uri;
+
+                host = document.getElementById("host").value; 
+                port = document.getElementById("port").value; 
+                password = document.getElementById("password").value;
+
+
+                if ((!host) || (!port)) {
+                    console.log("must set host and port");
+                    return;
+                }
+
+                if (sc) {
+                    sc.stop();
+                }
+
+                uri = scheme + host + ":" + port;
+
+                document.getElementById('connectButton').innerHTML = "Stop";
+                document.getElementById('connectButton').onclick = disconnect;
+
+                try
+                {
+                    sc = new SpiceMainConn({uri: uri, screen_id: "spice-screen", dump_id: "debug-div", 
+                                message_id: "message-div", password: password, onerror: spice_error });
+                }
+                catch (e)
+                {
+                    alert(e.toString());
+                    disconnect();
+                }
+
+            }
+
+            function disconnect()
+            {
+                console.log(">> disconnect");
+                if (sc) {
+                    sc.stop();
+                }
+                document.getElementById('connectButton').innerHTML = "Start";
+                document.getElementById('connectButton').onclick = connect;
+                console.log("<< disconnect");
+            }
+            
+            window.onbeforeunload = function(e){
+            	var url = "../../../updateVmEndingTime.htm";
+            	$.getJSON(url,function(){});
+            }
+        </script>
+    </head>
+
+    <body style="overflow: hidden;">
+
+        <div id="login" style="display: none;">
+            <span class="logo">SPICE</span>
+            <label for="host">Host:</label> <input type='text' id='host' value='192.168.2.254'> <!-- localhost --><!--202.104.180.14-->
+            <label for="port">Port:</label> <input type='text' id='port' value='15901'>
+            <label for="password">Password:</label> <input type='password' id='password' value=''>
+            <button id="connectButton" onclick="connect();">Start</button>
+        </div>
+
+        <div id="spice-area">
+            <div id="spice-screen" class="spice-screen"></div>
+        </div>
+
+        <div id="message-div" class="spice-message" style="display: none;" align="center">请重新申请使用软件</div>
+
+        <div id="debug-div" ><!--class="spice-message" style="height:500px;width:800px;"-->
+        <!-- If DUMPXXX is turned on, dumped images will go here -->
+        </div>
+		
+    </body>
+	<script>
+	if(window.location.host.indexOf('202.104.180.14') >= 0){
+		document.getElementById("host").value = '202.104.180.14';
+	}
+	</script>
+</html>

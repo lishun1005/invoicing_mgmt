@@ -1,0 +1,242 @@
+<!--#set(String manageHost = request.getScheme()+"://"+request.serverName+":"+"a".valueOf(request.serverPort)+request.getContextPath())-->
+<!--#set(com.lishun.im.page.Page<ImWarehouse> resultPage)-->
+<!--#set(List<Integer> pageNos = resultPage.getSlider(10))-->
+<!--#set(int totalPage = resultPage.getTotalPages())  -->
+
+<!-- 引入公共头部样式部分 -->
+${include("../public_header.httl")}
+
+<body  class="skin-blue">
+          
+    <!-- header logo: style can be found in header.less -->
+    <header class="header">
+    </header>
+    <div  class="wrapper row-offcanvas row-offcanvas-left">
+        <!-- Left side column. contains the logo and sidebar -->
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <aside class="right-side" style="margin-left: 0px">
+            <!-- Content Header (Page header) -->
+            <section class="content-header ovcl">
+                        <ol class="breadcrumb">
+                            <li><a class="fa fa-dashboard">类别管理</a></li>
+                        </ol>
+                </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <!-- 操作组 -->
+                <form class="uc_cs_form" id="pageForm"
+                    action="${manageHost}/imWarehouse/list.htm" method="get"
+                    class="form-horizontal">
+                    <input type="hidden" id="pageNo" name="pageNo" value="<!--#if("" == request.getParameter("pageNo"))-->${request.getParameter("pageNo")}<!--#else-->1<!--#end-->"/>
+                    <div class="oper-group">
+                        <span>关键字：</span>
+                        <div class="input-search input-group">
+                            <input type="text" placeholder="仓库名" style=""
+                                class="form-control input-sm" name="keyword" value="${keyword}">
+                        </div>
+                        <button class="btn btn-info btn-sm ml20">检索</button>
+                    </div>
+                </form>
+                <!-- /操作组 -->
+                <div class="content-table-title">
+                    <i class="fa fa-pencil"></i>仓库信息一览<button class="btn btn-info btn-sm ml20" data-toggle="modal"
+                    	onclick="editData()" >新增仓库</button>
+                </div>
+               
+                <!-- 列表 -->
+                <table class="table table-bordered table-hover define-name-table">
+                    <thead>
+                        <tr>
+                            <th width="20%">仓库名</th>
+                            <th width="30%">创建时间</th>
+                            <th width="">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--#if(resultPage.result)-->
+                        <!--#for(ImWarehouse info : resultPage.result)-->
+                        <tr id="${info.id}">
+                            <td name="name">${info.name}</td>
+                            <td name="">${info.createTime}</td>
+                            <td>
+                                <a href="javascript:void(0);" onclick="editData('${info.id}')">更新</a>
+                                <a href="javascript:void(0);" onclick="del('${info.id}')">删除</a>
+                            </td>
+                        </tr>
+                        <!-- #end -->
+                        <!--#else -->
+                        <tr>
+                            <td colspan="6" align="center"><font color="red">查找不到用户记录</font></td>
+                        </tr>
+                        <!--#end-->
+                    </tbody>
+                </table>
+                <!-- /列表 -->
+
+                <!-- 分页 -->
+                <!--#if(pageNos)-->
+                <div class="dataTables_paginate paging_bootstrap fl">
+                    <input type="hidden" id="totalPage" value="${totalPage}"></input>
+                    <ul class="pagination">
+                        <li class="prev">
+                            <!--#if(resultPage.hasPrePage)--> <a
+                            href="javascript:complaintFormPage(${resultPage.prePage});">上一页</a>
+                            <!--#else --> <!--  <a href="javascript:void(0);">上一页</a> --> <!-- #end -->
+                        </li>
+                        <!--#for(Integer userInfoPageNo : pageNos)-->
+                        <li
+                            <!--#if(userInfoPageNo == resultPage.pageNo)-->class="active"<!--#end-->>
+                            <a href="javascript:complaintFormPage(${userInfoPageNo});">${userInfoPageNo}</a></li>
+                        <!--#end-->
+
+                        <li class="next">
+                            <!--#if(resultPage.hasNextPage)--> <a
+                            href="javascript:complaintFormPage(${resultPage.nextPage});">下一页</a>
+                            <!--#else --> <!--  <a href="javascript:void(0);">下一页</a> --> <!-- #end -->
+                        </li>
+                    </ul>
+                </div>
+                <div class="fl page-go">
+                    当前第 ${resultPage.pageNo} 页 总记录数为 ${resultPage.totalItems}条 <span
+                        class="ml20"> 跳转到第 <input id="goPage"
+                        value="${resultPage.pageNo}" class="integer" /> 页<a
+                        href="javascript:complaintFormGoPage();"
+                        class="btn btn-info btn-sm ml20">GO</a>
+                </div>
+                <!--#end-->
+                <!-- /分页 -->
+            </section>
+            <!-- /.content -->
+        </aside>
+        <!-- /.right-side -->
+    </div>
+    <!-- ./wrapper -->
+
+    
+    <div class="modal fade " id="editDataModal" tabindex="-1" role="dialog"
+		style="z-index: 10" aria-labelledby="infoModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" style="width: 500; overflow-y: auto;">
+				<div class="modal-header" id="firstDiv" style="text-align: center">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="infoModalName"
+						style="font-weight: bold;">编辑类别</h4>
+				</div>
+				<div class="modal-body" id="addDiv" style="">
+					<form id="editDataForm" action="${manageHost}/imWarehouse/edit" method="post" class="form-inline"
+						enctype="multipart/form-data">
+
+						<div class="form-line "
+							style="margin-bottom: 10px; margin-left: 10px;">
+							<div class="form-group" >
+                               <label class="control-label">类别名:</label> 
+	                           <input type="hidden" class="form-control" name="id" required="required"/>
+	                           <input type="text" onblur="checkName(this)" class="form-control" name="name" required="required"/>
+                                <label id="showMsg" style="color: red"></label>
+                            </div>
+						</div>
+						
+                        <div class="form-line addShow"
+                            style="margin-bottom: 10px; margin-left: 10px;">
+                        </div>
+					</form>
+					<div class="modal-footer">
+	                    <button type="button" class="btn btn-primary" onclick="editDataFormSubmit()">提交</button>
+	                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                </div> 
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- 引用公共底部样式部分 -->
+    ${include("../public_footer.httl")}
+     <script type="text/javascript">
+     function checkName(obj){
+         var id=$("#editDataForm").find("input[name='id']").val();
+         var val=$(obj).val();
+         $.ajax({
+             url:"${manageHost}/imWarehouse/queryImWarehouseByName?name="+val,
+             type:"get",
+             success:function(res){
+                 if(res!=""){
+                     if(id!=res.id){
+                         $("#showMsg").text(val+"，该仓库已经存在");
+                         $(obj).val("");
+                     }
+                 }else{
+                     $("#showMsg").text(""); 
+                 }
+             }
+         })
+     }
+     function editData(id){
+    	 var form=$("#editDataForm");
+    	 form.find("input").val("");
+    	 if(id==""){
+    		 
+    	 }else{
+    		 var tr =$("#"+id);
+    		 form.find("input[name='name']").val(tr.find("td[name='name']").text());
+    		 form.find("input[name='id']").val(id);
+    	 }
+    	 $('#editDataModal').modal({ keyboard: false,backdrop:false});
+     }
+     function editDataFormSubmit(){
+	     if(checkFormValue("editDataForm")){
+	     	$('#editDataForm').submit();
+	  	 }    
+     }
+     function del(id){
+         if (confirm("你确定删除吗？")) {
+             window.location.href = "${manageHost}/imWarehouse/del?id=" + id;
+         }
+     }
+     
+    $(function(){
+        //弹出框高度对页面高度的控制
+        dialog_show_hide("editDataModal");
+    })
+    var checkFormValue = function(formid){
+         var form = document.getElementById(formid);;
+         for(var i=0;i< form.elements.length;i++){
+             var element = form.elements[i];
+             if(!checkValue(element)){
+                return false; 
+             }
+         }
+         return true;
+     }
+     
+    function invalidHandler(e) {
+         checkValue(e.target);
+         e.stopPropagation();
+         e.preventDefault();
+    }
+   	var checkValue = function(element){
+         if(element.checkValidity()){
+             element.parentElement.className="form-group";
+             return true;
+         }else{
+             element.parentElement.className="form-group has-error";
+             alert(element.validationMessage);
+             return false;
+         }
+     }
+     function loadinvalidHandler() {
+         var myform = document.getElementById("editDataForm");
+         for(var i=0;i< myform.elements.length-1;i++){
+             myform.elements[i].addEventListener("change",invalidHandler,false);
+         }
+     }
+     window.addEventListener("load", loadinvalidHandler, false); 
+        
+     window.onload=function(){ 
+         window.parent.$("#waiting").hide();
+     }
+     </script>
+</body>

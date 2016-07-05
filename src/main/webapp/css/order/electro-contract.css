@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+
+/*  专用于合同管理-电子合同样式*/
+.electronic-contract i{margin:2px 5px 0 0;}
+.electronic-contract-outerbox{z-index: 10001;border: 4px solid #85c3f2;border-radius: 5px;box-shadow: 0 0 9px #535353;padding:0 20px 20px;width:713px;position:fixed;margin-top:-240px;margin-left:-369px;top:50%;left:50%;background:#f7f7f7;}
+.electronic-contract-innderbox{overflow: auto;background:white;height:388px;padding:15px 10px;}
+.electronic-contract-colse{background:transparent url("../../images/images2/userCenter/close_tck.png") no-repeat scroll 3px 2px;height:25px;top:40%;width:25px;border:none;}
+.electronic-contract-innderbox p{text-align:left;line-height: 25px;}
+.electronic-contract-innderbox .border-lightgrey.table td{padding-bottom: 8px;padding-top: 8px;}
+.electronic-contract-mapPosition{margin: 0 auto;width: 428px;}
+.r,.fr,.float_r{float:right;}
+p{margin:0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

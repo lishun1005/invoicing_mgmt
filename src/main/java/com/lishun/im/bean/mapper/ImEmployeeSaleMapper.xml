@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lishun.im.dao.ImEmployeeSaleDao" >
+  <resultMap id="BaseResultMap" type="com.lishun.im.bean.ImEmployeeSale" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="specifications" property="specifications" jdbcType="VARCHAR" />
+    <result column="im_warehouse_id" property="imWarehouseId" jdbcType="VARCHAR" />
+    <result column="im_species_id" property="imSpeciesId" jdbcType="VARCHAR" />
+    <result column="sale_price" property="salePrice" jdbcType="DOUBLE" />
+    <result column="num" property="num" jdbcType="BIGINT" />
+    <result column="im_employee_id" property="imEmployeeId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pro_no" property="proNo" jdbcType="BIGINT" />
+    <result column="billing_by" property="billingBy" jdbcType="VARCHAR" />
+    <result column="count_price" property="countPrice" jdbcType="DOUBLE" />
+    <result column="is_price" property="isPrice" jdbcType="BIT" />
+  </resultMap>
+ 
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from im_employee_sale
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.lishun.im.bean.ImEmployeeSale" >
+
+    insert into im_employee_sale
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="specifications != null" >
+        specifications,
+      </if>
+      <if test="imWarehouseId != null" >
+        im_warehouse_id,
+      </if>
+      <if test="imSpeciesId != null" >
+        im_species_id,
+      </if>
+      <if test="salePrice != null" >
+        sale_price,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="imEmployeeId != null" >
+        im_employee_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="proNo != null" >
+        pro_no,
+      </if>
+      <if test="billingBy != null" >
+        billing_by,
+      </if>
+      <if test="countPrice != null" >
+        count_price,
+      </if>
+      <if test="isPrice != null" >
+        is_price,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null" >
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="imWarehouseId != null" >
+        #{imWarehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="imSpeciesId != null" >
+        #{imSpeciesId,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null" >
+        #{salePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=BIGINT},
+      </if>
+      <if test="imEmployeeId != null" >
+        #{imEmployeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proNo != null" >
+        #{proNo,jdbcType=BIGINT},
+      </if>
+      <if test="billingBy != null" >
+        #{billingBy,jdbcType=VARCHAR},
+      </if>
+      <if test="countPrice != null" >
+        #{countPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="isPrice != null" >
+        #{isPrice,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+  <update id="update" parameterType="com.lishun.im.bean.ImEmployeeSale" >
+   
+    update im_employee_sale
+    <set >
+      <if test="specifications != null" >
+        specifications = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="imWarehouseId != null" >
+        im_warehouse_id = #{imWarehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="imSpeciesId != null" >
+        im_species_id = #{imSpeciesId,jdbcType=VARCHAR},
+      </if>
+      <if test="salePrice != null" >
+        sale_price = #{salePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=BIGINT},
+      </if>
+      <if test="imEmployeeId != null" >
+        im_employee_id = #{imEmployeeId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proNo != null" >
+        pro_no = #{proNo,jdbcType=BIGINT},
+      </if>
+      <if test="billingBy != null" >
+        billing_by = #{billingBy,jdbcType=VARCHAR},
+      </if>
+      <if test="countPrice != null" >
+        count_price = #{countPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="isPrice != null" >
+        is_price = #{isPrice,jdbcType=BIT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

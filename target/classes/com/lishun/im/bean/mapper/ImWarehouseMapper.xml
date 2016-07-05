@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lishun.im.dao.ImWarehouseDao" >
+  <resultMap id="BaseResultMap" type="com.lishun.im.bean.ImWarehouse" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  
+  <select id="queryList"  resultMap="BaseResultMap">
+      select *  from im_warehouse  
+      <where>
+          <if test="keyword!=null and keyword!=''"> 
+            <bind name="keyword" value="'%' + keyword + '%'" />
+            and name like #{keyword} 
+          </if>
+      </where>
+      <if test="pageNo!=null and rows!=null" >
+        order by create_time desc limit #{pageNo},#{rows}
+      </if>
+   </select>
+   
+   <select id="queryListCount"  resultType="Long" parameterType="String">
+     select count(*)  from im_warehouse 
+     <where>
+        <if test="keyword!=null and keyword!=''"> 
+        <bind name="keyword" value="'%' + keyword + '%'" />
+        and im_species.name like #{keyword}  
+      </if> 
+     </where>
+   </select>
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from im_warehouse
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.lishun.im.bean.ImWarehouse" >
+    insert into im_warehouse (id, name
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <update id="update" parameterType="ImWarehouse" >
+    update im_warehouse
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <where>
+        id=#{id}
+    </where>
+  </update>
+  <select id="queryImWarehouseByName"  resultType="com.lishun.im.bean.ImWarehouse">
+    select * from im_warehouse 
+    <where>
+        name=#{name}
+    </where>
+  </select>
+</mapper>
